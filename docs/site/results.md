@@ -382,20 +382,19 @@ build with its full path. A relative path needs the script to be saved; **Test C
 ### PostgreSQL and SQL Server connections
 
 A **PostgreSQL** or **SQL Server** connection is one connection string, with `${secret:name}` for the password, and an optional **Schema** that
-limits what is read to it. Invoklet reads the tables, views, columns and foreign keys, and the connection becomes an Entity Framework Core
-context like the SQLite one: a set per table (`Connections.Shop.Customers`), `OrderItem` rows, navigation properties for foreign keys, and
-keyless views and tables that can only be read. A table outside the default schema (`public`, `dbo`) gets its schema in its name
-(`SalesOrders`) when more than one schema is read. The script needs the provider package (`Npgsql.EntityFrameworkCore.PostgreSQL` or
-`Microsoft.EntityFrameworkCore.SqlServer`), which **Add to Script** adds in the release that fits the script's target framework.
+limits what is read to it. Invoklet reads the database with Entity Framework Core's own reverse engineering, as `dotnet ef dbcontext scaffold` does:
+tables, views, columns with their types, defaults and generated values, keys and foreign keys, named the way EF Core names them (`order_items` is
+the set `OrderItems` of `OrderItem` rows). The connection becomes an EF Core context like the SQLite one: `Connections.Shop.Customers`,
+navigation properties for foreign keys, and keyless views and tables that can only be read. The script needs the provider package
+(`Npgsql.EntityFrameworkCore.PostgreSQL` or `Microsoft.EntityFrameworkCore.SqlServer`), which **Add to Script** adds in the release that fits the
+script's target framework (EF Core 8 for `net8.0`, 9 for `net9.0`, 10 otherwise).
+
 You do not have to put a password in the connection string. **PostgreSQL** takes it from your pgpass file when the string has none: `~/.pgpass`
 (`%APPDATA%\postgresql\pgpass.conf` on Windows), or the file named by `Passfile=` in the string or by the `PGPASSFILE` environment
 variable, with one `host:port:database:user:password` line per server. Invoklet and the script read it the same way, as you, so nothing is stored
 in Invoklet or in the script. When the server asks for a password and no line matches, the error says which `host:port:database:user` was looked for.
 **SQL Server** signs in as your Windows account with `Integrated Security=true`; on macOS and Linux that needs a Kerberos ticket (`kinit`), and the
 error says so when it fails. `${env:NAME}` and `${secret:name}` work anywhere in the string.
-
-Types are the provider's own: `uuid` and `uniqueidentifier` are `Guid`, `timestamptz` and `datetimeoffset` are `DateTimeOffset`,
-`jsonb` is text, a PostgreSQL array is an array, and a type with no plain C# one is read as text.
 
 In **Tools → Connections**, the panel on the right browses the connection: tables and views with their columns (type, `null` or
 `not null`, primary key) and foreign keys, read when you select the connection. For a path relative to a script, choose that script's
