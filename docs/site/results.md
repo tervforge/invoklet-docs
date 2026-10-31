@@ -387,6 +387,13 @@ context like the SQLite one: a set per table (`Connections.Shop.Customers`), `Or
 keyless views and tables that can only be read. A table outside the default schema (`public`, `dbo`) gets its schema in its name
 (`SalesOrders`) when more than one schema is read. The script needs the provider package (`Npgsql.EntityFrameworkCore.PostgreSQL` or
 `Microsoft.EntityFrameworkCore.SqlServer`), which **Add to Script** adds in the release that fits the script's target framework.
+You do not have to put a password in the connection string. **PostgreSQL** takes it from your pgpass file when the string has none: `~/.pgpass`
+(`%APPDATA%\postgresql\pgpass.conf` on Windows), or the file named by `Passfile=` in the string or by the `PGPASSFILE` environment
+variable, with one `host:port:database:user:password` line per server. Invoklet and the script read it the same way, as you, so nothing is stored
+in Invoklet or in the script. When the server asks for a password and no line matches, the error says which `host:port:database:user` was looked for.
+**SQL Server** signs in as your Windows account with `Integrated Security=true`; on macOS and Linux that needs a Kerberos ticket (`kinit`), and the
+error says so when it fails. `${env:NAME}` and `${secret:name}` work anywhere in the string.
+
 Types are the provider's own: `uuid` and `uniqueidentifier` are `Guid`, `timestamptz` and `datetimeoffset` are `DateTimeOffset`,
 `jsonb` is text, a PostgreSQL array is an array, and a type with no plain C# one is read as text.
 
