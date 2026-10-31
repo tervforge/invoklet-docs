@@ -379,6 +379,17 @@ which **Add to Script** adds, in the release that fits the script's target frame
 build with its full path. A relative path needs the script to be saved; **Test Connection** in
 **Tools → Connections** needs a full path.
 
+### PostgreSQL and SQL Server connections
+
+A **PostgreSQL** or **SQL Server** connection is one connection string, with `${secret:name}` for the password, and an optional **Schema** that
+limits what is read to it. Invoklet reads the tables, views, columns and foreign keys, and the connection becomes an Entity Framework Core
+context like the SQLite one: a set per table (`Connections.Shop.Customers`), `OrderItem` rows, navigation properties for foreign keys, and
+keyless views and tables that can only be read. A table outside the default schema (`public`, `dbo`) gets its schema in its name
+(`SalesOrders`) when more than one schema is read. The script needs the provider package (`Npgsql.EntityFrameworkCore.PostgreSQL` or
+`Microsoft.EntityFrameworkCore.SqlServer`), which **Add to Script** adds in the release that fits the script's target framework.
+Types are the provider's own: `uuid` and `uniqueidentifier` are `Guid`, `timestamptz` and `datetimeoffset` are `DateTimeOffset`,
+`jsonb` is text, a PostgreSQL array is an array, and a type with no plain C# one is read as text.
+
 In **Tools → Connections**, the panel on the right browses the connection: tables and views with their columns (type, `null` or
 `not null`, primary key) and foreign keys, read when you select the connection. For a path relative to a script, choose that script's
 folder in the field below the status line.
