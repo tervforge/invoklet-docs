@@ -364,11 +364,10 @@ Connections.Shop.Customers.Add(new Connections.ShopClient.Customer { Name = "Eve
 Connections.Shop.SaveChanges();
 ```
 
-A foreign key is a pair of properties: `order.Customer` on the table that holds the key and `customer.Orders` on the table
-it points to (named after the column without its `Id`, and after the table when the key is of several columns; a second key to
-the same table gets the name of its column added). They are loaded as EF Core loads any navigation, so add
-`using Microsoft.EntityFrameworkCore;` and `.Include(o => o.Customer)`. A key whose columns have different types, or that
-points to a table without a primary key, stays an ordinary column.
+A foreign key is a pair of properties, named as Entity Framework Core's reverse engineering names them: `order.Customer` on the table that holds
+the key and `customer.Orders` on the table it points to (when a table has two keys to the same one, the names say which: `ParcelShippers` and
+`ParcelReceivers`). They are loaded as EF Core loads any navigation, so add `using Microsoft.EntityFrameworkCore;` and `.Include(o => o.Customer)`.
+The tables, views, sets and rows are named by EF Core too: `order_items` is the set `OrderItems` of `OrderItem` rows, and `log` is `Logs` of `Log`.
 
 In the form, **Browse...** next to the database file picks the file, and the path is entered whole (type a relative path by hand).
 
