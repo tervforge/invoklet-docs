@@ -107,9 +107,15 @@ A type can control which members `.Dump()` shows by implementing `ICustomMemberP
 
 ## Saving the results
 
-**File → Export Results as HTML…**, or **Save results as HTML…** in the output settings (the gear above the results), saves everything
+**File → Export Results as HTML…**, or **Save results as HTML…** in the context menu of the results panel (right click), saves everything
 in the results panel as one HTML page, with the colours of the current theme, that opens in any browser. The suggested name is the
 script's own, in its folder. A tab with no results says so instead of saving an empty page.
+
+Every table in the results has a **…** button in the header of its last column. Click it and choose **Export to CSV…** to save that table as a CSV file: the column names
+first, then a line for each row, the values as the results show them (a `null` is an empty field). A table inside a cell of another is
+the text of that cell. The file is UTF-8 with a byte order mark, so Excel reads accented letters and other scripts right. A field that
+would be read as a formula (it starts with `=`, `+`, `@`, or `-` followed by something that is not a number) gets a `'` in front, so that
+opening the file in a spreadsheet cannot run it. The suggested name is the script's, with `-2` for the second table when there are several.
 
 ## Highlights, styles and headings
 
@@ -233,6 +239,8 @@ The workspace sidebar is organized into three collapsible sections:
 - **Samples** — bundled examples grouped by folder.
 
 The three sections use the same tree rows, icons, selection behavior and keyboard navigation.
+Open sections share the sidebar's height: drag the line between two open sections to give one of them more
+room and the other less. The heights are remembered between launches.
 Connections can be reordered or moved between groups with the context menu, keyboard commands or
 drag and drop. A connection can also be dragged onto the editor, or added with **Add to Script**.
 The sidebar remembers which sections, connection groups and sample folders were expanded between
