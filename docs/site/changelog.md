@@ -13,7 +13,8 @@ Notable changes in each Invoklet release. Downloads are on the
 ## [0.11.1] — 2026-11-02
 
 This release adds PostgreSQL and SQL Server connections, exports a table of the results as CSV, lets you drag the heights of the sidebar sections, and
-closes six security gaps around secrets, downloads and connections.
+closes six security gaps around secrets, downloads and connections. It also makes saving a script safe against a failed write, and fixes a number of smaller
+problems in the editor, the sidebar, tab switching, the settings and the command line (see Fixed).
 
 **Changed behaviour:** SQLite connections now name their sets and rows as Entity Framework Core does (`order_items` is `OrderItems`, a table `log` is
 `Logs`). A script that uses a set by its old name must be changed to the new one.
@@ -26,6 +27,8 @@ closes six security gaps around secrets, downloads and connections.
   provider is a library of its own.
   A PostgreSQL connection can leave the password out and use the pgpass file; a SQL Server one can use `Integrated Security=true`. The form says
   so, and a failed sign-in names the pgpass line looked for or the Kerberos ticket needed.
+  A column the database uses to detect concurrent changes (a SQL Server `rowversion`) is honoured: saving a row that another client has changed since it
+  was read fails with `DbUpdateConcurrencyException` instead of overwriting the other change.
 - A "…" button in the header of the last column of every table in the results opens a menu with **Export to CSV...**, which saves that table as a CSV file (UTF-8 with a byte order mark,
   so Excel reads it right). "Save results as HTML..." moved from the output settings to the context menu of the results panel.
 - The heights of the sections of the sidebar (Connections, Scripts, Samples) can be changed by dragging the line between two open sections, and are
@@ -49,6 +52,20 @@ closes six security gaps around secrets, downloads and connections.
 - The Test button and the OpenAPI schema read no longer follow a redirect, which would have sent a connection's headers, a secret among them, to
   whatever host the server named.
 - A script's saved output (`run-output.json`) is readable by its owner only on macOS and Linux.
+- Switching between open scripts no longer freezes the window while the text and the output of a tab are written to disk or read back, which took long for
+  a tab with a large output and for scripts on a slow or network disk. A tab that is edited, run, saved or selected meanwhile keeps its text.
+- A link to a folder that leads back to a folder being listed (a link to its own parent, or to `/`) no longer makes the list of scripts walk the same folders over
+  and over, or the whole disk: such a link is shown as a folder without content. Links to other folders are listed as before.
+- The command-line runner ends with exit code 130 when it is stopped with Ctrl+C at any stage, also while it reads the script or a connection's description (it used
+  to print an exception), and a script or output file it cannot read or write is a message with exit code 2 (1 for `convert`).
+- A settings file that holds `null` for a group of settings (`"Logging": null`) no longer stops Invoklet from starting: the group has its default values.
+  A settings file that cannot be read is kept as `settings.json.bad` before the defaults are saved over it.
+- In database connections a foreign key on a unique column is a one-to-one relationship: the row on the other side is one row (`person.Passport`), not a
+  collection of rows.
+- A library that a script references by path is read again by the editor when it is built again in the same place, so completion and errors follow the new
+  version without restarting Invoklet.
+- Saving a script no longer risks losing it: the new text is written to a temporary file next to it, which then replaces the script, so a save that fails
+  (the disk is full, a network share is lost) leaves the script as it was and the tab unsaved. The file keeps its permissions, and a link to a script stays a link.
 
 ## [0.11.0] — 2026-10-31
 
