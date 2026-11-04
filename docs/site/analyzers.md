@@ -101,7 +101,7 @@ Open **Preferences → Languages → .NET → C#**:
 | --- | --- |
 | *Code fixes and refactorings (lightbulb)* | Turns the lightbulb on or off. Underlines are not affected. |
 | *Excluded diagnostic IDs* | One ID per line, matched exactly and case-insensitively (for example `IDE0007`). Hides lightbulb fixes for those diagnostics. Underlines are not affected, and refactorings, which have no diagnostic ID, cannot be excluded this way. The default list contains `IDE0055` (formatting). |
-| *Inlay hints* | Shows or hides inferred types next to `var` and `foreach` variables. |
+| *Inlay hints* | Shows or hides inferred types next to `var` and `foreach` variables. Off by default. |
 
 ## What analysis does not promise
 

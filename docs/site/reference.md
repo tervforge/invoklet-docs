@@ -42,7 +42,7 @@ Open **Tools → Preferences...**. Settings are grouped in a tree on the left; t
 | **Keyboard** | Every key binding, grouped by area, with Reset and conflict warnings; see [Keyboard shortcuts](#keyboard-shortcuts). |
 | **Languages → .NET** | *Dotnet path* (default `dotnet`, found on `PATH`) and *Debugger path* (the `netcoredbg` executable). Shared by C# and Visual Basic. |
 | **Languages → .NET → C#** | *Inlay hints*; *Code fixes and refactorings (lightbulb)*; *Excluded diagnostic IDs*. See [Diagnostics and analyzers](analyzers.md#settings). |
-| **Logging** | What Invoklet writes about its own work to the `logs` folder and the console: *Off* (nothing, and no log file), *Fatal errors only* (crashes of Invoklet itself), *Errors*, *Warnings*, *Information* (the default) or *Debug* (everything, including parts of your scripts). Takes effect at once. |
+| **Logging** | What Invoklet writes about its own work to the `logs` folder and the console: *Off* (nothing, and no log file), *Fatal errors only* (crashes of Invoklet itself and a start that failed; the default), *Errors*, *Warnings*, *Information* or *Debug* (everything, including parts of your scripts). Takes effect at once. |
 | **Experimental** | Features that are not finished yet, all off by default: *RunPad analyzers* (`RPAD…` warnings). See the experimental analysis settings described below. |
 | **Languages → .NET → Visual Basic** | No settings yet. |
 

@@ -180,7 +180,7 @@ inserts; any other key leaves the code as it is.
 - **Quick info** (C#): rest the mouse pointer over a symbol for a moment to see its
   signature and documentation.
 - **Inlay hints** (C#) show the inferred type next to `var` declarations and `foreach`
-  variables. Turn them off in **Preferences → Languages → .NET → C#**.
+  variables. They are off by default; turn them on in **Preferences → Languages → .NET → C#**.
 
 ## Navigation and refactoring
 
