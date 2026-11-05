@@ -12,7 +12,7 @@ install both for you.
 
 ## Download
 
-Download Invoklet from the [releases page](https://github.com/campforge/run-pad/releases).
+Download Invoklet from the [releases page](https://github.com/tervforge/invoklet/releases).
 The newest release is at the top; pick the file for your system from its **Assets**
 list:
 
@@ -84,8 +84,9 @@ If startup fails, it shows the log location and a **Close** button.
 
 When Invoklet starts, it checks two prerequisites:
 
-- **.NET SDK** — found when `dotnet --list-sdks` (or the dotnet path you configured)
-  reports at least one SDK of version 6 or newer.
+- **.NET SDK** — Invoklet looks for `dotnet` on `PATH`, then in standard installation directories.
+  The selected executable must report at least one SDK of version 6 or newer with `--list-sdks`.
+  If you configure a specific executable, Invoklet uses that path.
 - **netcoredbg** — found when a debugger path is configured and the file exists.
 
 If both are present, the main window opens directly. If either is missing, a setup
@@ -125,7 +126,7 @@ starts with a warning, and the status bar shows *net6.0 (not installed)*. The
 ## Updating and uninstalling
 
 Invoklet does not update itself. To update, download the new version from the
-[releases page](https://github.com/campforge/run-pad/releases):
+[releases page](https://github.com/tervforge/invoklet/releases):
 
 - **Windows installer**: install the new `.msi` over the old one. Uninstall from
   *Add or remove programs*.
