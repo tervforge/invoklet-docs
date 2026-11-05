@@ -1,6 +1,6 @@
 ---
 title: Editor
-description: Syntax and semantic highlighting, completion, signature help, navigation, rename and formatting in the RunPad editor.
+description: Syntax and semantic highlighting, completion, signature help, navigation, rename and formatting in the Invoklet editor.
 ---
 
 # Editor
@@ -38,7 +38,7 @@ Change or disable both shortcuts in **Preferences → Keyboard**.
 ## Extension methods in C# Program scripts
 
 !!! note "Unreleased"
-    This support is not included in RunPad 0.8.0.
+    This support is not included in Invoklet 0.8.0.
 
 In **Program** mode, put extension methods in a top-level static class alongside `Main`:
 
@@ -64,32 +64,32 @@ Methods and fields of the query remain members of the query.
 ## Recovering unsaved tabs
 
 **Preferences → Editor → Restore open tabs and unsaved changes** keeps your workspace locally when you exit
-RunPad normally. It is enabled by default; restart RunPad after changing the setting.
+Invoklet normally. It is enabled by default; restart Invoklet after changing the setting.
 
-On the next launch, RunPad restores the tab order, active tab, unsaved text, caret and selection,
+On the next launch, Invoklet restores the tab order, active tab, unsaved text, caret and selection,
 and script settings such as arguments, references and packages. Original script files are not
 modified by this checkpoint. Clean files are read again from disk; a missing file can be recovered
 from its cached text. Explicitly closing a tab and choosing **Don't Save** discards that tab.
 
-When you close RunPad with unsaved tabs, it asks once what to do with them:
+When you close Invoklet with unsaved tabs, it asks once what to do with them:
 
 - **Save All** saves every unsaved tab, with the usual Save As for untitled ones and the usual
-  question about files changed on disk. Cancelling or a failed save keeps RunPad open; files
+  question about files changed on disk. Cancelling or a failed save keeps Invoklet open; files
   saved before that stay saved.
 - **Keep in Stash** closes without writing the files; the changes come back on the next launch.
-- **Cancel** keeps RunPad open.
+- **Cancel** keeps Invoklet open.
 
-RunPad waits for pending Save As and file moves before writing the checkpoint. If writing fails,
+Invoklet waits for pending Save As and file moves before writing the checkpoint. If writing fails,
 the window stays open so you can retry or save your work. Recovery data is stored in the
-`recovery` folder of [RunPad's data folder](reference.md#where-runpad-stores-data). A damaged checkpoint can fall back
-to the previous one. Each running instance keeps its own recovery data. On startup RunPad restores
-the most recent session and also brings in the unsaved drafts of other RunPad windows that have
+`recovery` folder of [Invoklet's data folder](reference.md#where-invoklet-stores-data). A damaged checkpoint can fall back
+to the previous one. Each running instance keeps its own recovery data. On startup Invoklet restores
+the most recent session and also brings in the unsaved drafts of other Invoklet windows that have
 been closed since; a running window's drafts are left alone. A draft of a file that is already
 open comes back as an untitled copy named after the file, so neither version is overwritten: it
 still finds the file's relative references, and it can't be saved over that file or over one
 another tab has open.
 
-The other window's draft data is deleted once RunPad has kept the restored drafts in two of its
+The other window's draft data is deleted once Invoklet has kept the restored drafts in two of its
 own checkpoints, so a damaged newest checkpoint can't lose them. Startup reports what it restored
 in a notice above the editor instead of a message box; **Dismiss** hides it. Draft data that cannot be read is kept unchanged and its recovery folders are listed in
 the notice (the text can be selected and copied). Damaged session data is skipped when an older
@@ -241,7 +241,7 @@ the keys you assigned. On a narrow window the strip keeps every button within re
 
 ### Interface scale and shared code zoom
 
-Available from **RunPad 0.6.0**.
+Available from **Invoklet 0.6.0**.
 
 **Preferences → Interface → Interface scale** changes the size of the interface,
 including code, results, panels, dialogs, icons and click targets. The default is 100%;

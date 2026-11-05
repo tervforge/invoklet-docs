@@ -1,13 +1,13 @@
 ---
-title: Scripts and .rpad files
-description: The .rpad file format, front matter fields and the Statements, Program and Expression kinds.
+title: Scripts and .inv files
+description: The .inv file format, front matter fields and the Statements, Program and Expression kinds.
 ---
 
-# Scripts and .rpad files
+# Scripts and .inv files
 
 ## Opening scripts
 
-Use **File → Open…** (**Ctrl+O**, or **Cmd+O** on macOS) to open a `.rpad` file from
+Use **File → Open…** (**Ctrl+O**, or **Cmd+O** on macOS) to open a `.inv` file from
 any local folder. It stays in that folder; opening it does not copy it into Queries or run it.
 Opening an already-open path activates its existing tab and preserves unsaved changes.
 
@@ -28,7 +28,7 @@ recent scripts first. Use **Up** and **Down** to choose and **Enter** (or **Open
 
 ## File format
 
-A RunPad script is a plain-text `.rpad` file. It is a Markdown document with:
+A Invoklet script is a plain-text `.inv` file. It is a Markdown document with:
 
 1. a YAML **front matter** block between two `---` lines at the very top;
 2. exactly one **run block**: a fenced code block whose info string is `csharp run` or
@@ -61,16 +61,16 @@ The file is Markdown-compatible and diffs cleanly in version control. You can re
 without creating a separate `.md` copy. The overview explains the file-type hint needed
 for GitHub rendering.
 
-## How RunPad edits the file
+## How Invoklet edits the file
 
-The editor shows only the code inside the run block. RunPad keeps the Markdown before
+The editor shows only the code inside the run block. Invoklet keeps the Markdown before
 and after the block exactly as it was and writes it back unchanged when it saves. The
 front matter is changed through the UI: the **kind** drop-down in the toolbar, the
 [Dependencies window](dependencies.md) and code fixes that add a namespace. To edit the
 Markdown text around the code, use another text editor — for example Obsidian with the
-RunPad Markdown plugin; see [View your scripts in Obsidian](obsidian.md).
+Invoklet Markdown plugin; see [View your scripts in Obsidian](obsidian.md).
 
-When RunPad saves a script, it writes the front matter again from the fields it knows,
+When Invoklet saves a script, it writes the front matter again from the fields it knows,
 in a fixed order. YAML comments and unknown fields in the header are not kept.
 
 ## Markdown preview
@@ -140,7 +140,7 @@ namespaces:
 ```
 
 !!! warning "Invalid files are opened as plain text"
-    RunPad refuses to run a file that has no front matter, an unclosed front matter
+    Invoklet refuses to run a file that has no front matter, an unclosed front matter
     block, invalid YAML (for example `kind: Script`), or no run block for the declared
     language. The tab shows the whole file as text, the Results tab explains the
     problem, and the status strip says *Invalid document*. Fix the file and reopen it.
@@ -149,35 +149,35 @@ namespaces:
 
 The opening fence must be exactly three backticks, the language id, whitespace, and
 `run` (for example `` ```csharp run ``). Variations such as `csharp runner` or
-`csharprun` are not run blocks. RunPad uses the first matching block in the file. Other
+`csharprun` are not run blocks. Invoklet uses the first matching block in the file. Other
 fenced blocks, such as `csharp` examples without `run`, are ordinary Markdown.
 
 ### Namespaces imported by default
 
-C# scripts get the namespaces of the .NET SDK's implicit usings plus RunPad's runtime
+C# scripts get the namespaces of the .NET SDK's implicit usings plus Invoklet's runtime
 namespace: `System`, `System.Collections.Generic`, `System.IO`, `System.Linq`,
-`System.Net.Http`, `System.Threading`, `System.Threading.Tasks` and `RunPad.Runtime`.
+`System.Net.Http`, `System.Threading`, `System.Threading.Tasks` and `Invoklet.Runtime`.
 Visual Basic scripts import the same list. Add anything else to `namespaces`, or let a
 [quick fix](analyzers.md#quick-fixes-and-the-lightbulb) add it for you.
 
 C# scripts compile with nullable reference types enabled and the default C# language
 version of the selected SDK (for example C# 14 for .NET 10).
 
-## Conditional code for RunPad
+## Conditional code for Invoklet
 
-RunPad defines the `RUNPAD` preprocessor symbol for C# and Visual Basic scripts,
-including scripts run through the CLI. Use it to keep RunPad-specific code in a
+Invoklet defines the `Invoklet` preprocessor symbol for C# and Visual Basic scripts,
+including scripts run through the CLI. Use it to keep Invoklet-specific code in a
 script that is also used by another runner:
 
 ```csharp
-#if RUNPAD
-Console.WriteLine("Running in RunPad");
+#if Invoklet
+Console.WriteLine("Running in Invoklet");
 #else
 Console.WriteLine("Running elsewhere");
 #endif
 ```
 
-In Visual Basic, use `#If RUNPAD Then` with `#Else` and `#End If`.
+In Visual Basic, use `#If Invoklet Then` with `#Else` and `#End If`.
 
 ## Script arguments
 
@@ -195,14 +195,14 @@ the arguments without changing the file.
 
 ## External file changes
 
-When another program changes an open script, its tab follows the file. RunPad checks
+When another program changes an open script, its tab follows the file. Invoklet checks
 when you switch back to it from another program, and as soon as a script in the scripts
 folder changes:
 
 - A tab without unsaved changes reloads quietly: the code, the header (kind, target,
   packages) and the preview. **Undo** brings back the text the reload replaced.
 - A tab with unsaved changes asks whether to **Reload** the file and lose your changes, or
-  **Keep My Changes**. Keeping them is the default, and RunPad doesn't ask again about the
+  **Keep My Changes**. Keeping them is the default, and Invoklet doesn't ask again about the
   same version of the file.
 - A running script, or a file that was deleted, is left as it is.
 - If the file now holds a script in the other language (C# instead of Visual Basic or the
@@ -216,11 +216,11 @@ If you keep your changes, the next save asks whether to **Save As…**, **Overwr
 **Cancel**. This also applies to the automatic save before Run/Debug and saves required
 before closing or file operations. Cancel or an unsuccessful Save As stops that operation
 and keeps your unsaved changes. Overwrite explicitly replaces the disk version; Save As
-keeps it and saves your tab under another name. RunPad never merges the two versions.
+keeps it and saves your tab under another name. Invoklet never merges the two versions.
 
 ## Kinds
 
-The kind decides how RunPad turns your code into a program. Change it with the kind
+The kind decides how Invoklet turns your code into a program. Change it with the kind
 drop-down in the toolbar; the choice is saved to the front matter.
 
 ### Statements
@@ -233,7 +233,7 @@ var words = new[] { "alpha", "beta", "gamma" };
 words.Select(w => w.ToUpperInvariant()).Dump();
 ```
 
-In Visual Basic, RunPad wraps the code in a module with a `Sub Main`, so you write only
+In Visual Basic, Invoklet wraps the code in a module with a `Sub Main`, so you write only
 the statements:
 
 ```vb
@@ -247,7 +247,7 @@ names.Select(Function(n) New With {.Name = n, .Letters = n.Length}).Dump("Names"
 ### Program
 
 You write a `Main` method and whatever else it needs: fields, helper methods, nested
-types. In C#, RunPad places your code inside a generated class and calls `Main` for you.
+types. In C#, Invoklet places your code inside a generated class and calls `Main` for you.
 `Main` may be static or not, and may take the command-line arguments, a cancellation token, or
 both:
 
@@ -258,7 +258,7 @@ both:
 | `Main(CancellationToken ct)`, `Main(string[] args, CancellationToken ct)` | `ct` is cancelled when you press **Stop**; see [Stopping a script](results.md#stopping-a-script). |
 | `int Main(…)`, `async Task<int> Main(…)` | The returned number is the exit code; anything but 0 shows as *Exit code N*. |
 
-If the script declares several `Main` overloads, RunPad calls the one that takes the most:
+If the script declares several `Main` overloads, Invoklet calls the one that takes the most:
 arguments and a token, then a token, then arguments, then none. A `Main` under `#if DEBUG` or
 another conditional symbol counts only when the script's target framework defines that symbol,
 as it does for the compiler (`DEBUG` and `TRACE` are always defined).
@@ -266,13 +266,13 @@ as it does for the compiler (`DEBUG` and `TRACE` are always defined).
 ```csharp
 void Main()
 {
-    Console.WriteLine(Greet("RunPad"));
+    Console.WriteLine(Greet("Invoklet"));
 }
 
 string Greet(string name) => $"Hello, {name}!";
 ```
 
-A static class with extension methods can sit next to `Main`, as in LINQPad. RunPad then compiles
+A static class with extension methods can sit next to `Main`, as in LINQPad. Invoklet then compiles
 the script's static classes outside the generated class, because C# allows extension methods only
 in a class that isn't nested; other types stay nested in it as usual. The static classes still see
 the script's types, methods and fields by their simple names, but only those marked `internal` or
@@ -306,7 +306,7 @@ End Module
 
 ### Expression
 
-The whole block is one expression, written without a trailing semicolon. RunPad
+The whole block is one expression, written without a trailing semicolon. Invoklet
 evaluates it and renders the result as if you had called `.Dump()` on it.
 
 ```csharp
@@ -317,9 +317,9 @@ The [examples](examples.md) include one script of each C# kind.
 
 ## Where your scripts live
 
-RunPad shows the `.rpad` files and folders inside **RunPad Queries** in your Documents folder
+Invoklet shows the `.inv` files and folders inside **Invoklet Queries** in your Documents folder
 (created on first start) in the **Scripts** section of the panel on the left. The tree refreshes
-when files change on disk. The **Samples** section lists the sample scripts that come with RunPad,
+when files change on disk. The **Samples** section lists the sample scripts that come with Invoklet,
 grouped by folder; see [Examples](examples.md). Right-click the Scripts tree to create C# or Visual
 Basic files and folders,
 rename, delete, or *Show in File Manager*; drag items to move them.

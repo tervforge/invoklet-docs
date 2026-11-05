@@ -161,7 +161,7 @@ Removing the app does not remove your scripts, settings or separately installed 
 
 Use **Finder → Go → Go to Folder…** to visit these locations. Back up scripts before
 deleting them. Other development tools may also use the SDK; retain it if needed.
-See [Where Invoklet stores data](reference.md#where-runpad-stores-data) for details.
+See [Where Invoklet stores data](reference.md#where-invoklet-stores-data) for details.
 
 ## Troubleshooting
 

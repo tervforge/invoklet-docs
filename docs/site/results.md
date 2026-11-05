@@ -5,7 +5,7 @@ description: Console output, .Dump() tables, DumpOptions, DumpContainer, progres
 
 # Results and runtime helpers
 
-Every script is compiled against a small runtime library, `RunPad.Runtime`. It provides
+Every script is compiled against a small runtime library, `Invoklet.Runtime`. It provides
 `.Dump()`, `DumpContainer`, `DumpOptions` and the `Util` class. Its namespace is imported
 automatically, so none of these need a `using`. Scripts imported from `.linq` files
 usually work without changes.
@@ -173,7 +173,7 @@ for (var i = 1; i <= 5; i++)
 progress.Caption = "Done";
 ```
 
-The `live-output.rpad` sample combines both. In the
+The `live-output.inv` sample combines both. In the
 [command-line runner](cli.md), each update is printed again below the previous output
 instead of replacing it.
 
@@ -193,7 +193,7 @@ An input bar appears under the output tabs with the prompt. Type the answer and 
 invariant culture and works for types such as `int`, `double`, `bool` and `DateTime`.
 If the run is cancelled before you answer, the result is `null` (or the default value).
 
-Interactive input works only in a normal run in the RunPad window. It is not available
+Interactive input works only in a normal run in the Invoklet window. It is not available
 while debugging, and the command-line runner does not answer input requests, so such a
 script waits there until you press ++ctrl+c++.
 
@@ -214,16 +214,16 @@ var token = Util.GetSecret("billing-api");
 The Secret Store window lists the names of your secrets. Select one to change its name or value;
 the value stays hidden until you tick **Show**. **Add** and **Remove** change the list, **Save**
 saves it and **Cancel** drops your changes. Names must differ, letter case aside, and
-`Util.GetSecret` finds them the same way. If another RunPad window changed the store meanwhile,
+`Util.GetSecret` finds them the same way. If another Invoklet window changed the store meanwhile,
 **Save** says so instead of overwriting it.
 
 The secrets belong to you on this computer and live outside every script, in `secrets.json` in
-RunPad's data folder (see [Where RunPad stores data](reference.md#where-runpad-stores-data)). On
+Invoklet's data folder (see [Where Invoklet stores data](reference.md#where-invoklet-stores-data)). On
 Windows the values are encrypted for your Windows account; on macOS and Linux the file is
 readable only by you, like `~/.pgpass`. A script asking for a secret that isn't there fails with
 `KeyNotFoundException`, whose message names the secret and the store. The command-line runner
 reads the same store. To use another file, for example on a build server, set the
-`RUNPAD_SECRETS_FILE` environment variable to its path.
+`INVOKLET_SECRETS_FILE` environment variable to its path.
 
 On macOS and Linux the values are encrypted with a key kept in the system keychain (Keychain or the Secret Service), which may ask you to
 unlock it. Invoklet touches the keychain only when something needs a value: starting the program, running a script that never mentions
@@ -274,7 +274,7 @@ Write a password or token as `${secret:name}` (or pick it from **Insert secret**
 in the [Secret Store](#secrets) and is filled in only when the connection is used.
 `${env:NAME}` takes an environment variable instead, and `$${` writes a literal `${`.
 **Test Connection** tries the selected connection with those values. **Save** saves the list in
-`connections.json` in RunPad's data folder; secrets are never written there.
+`connections.json` in Invoklet's data folder; secrets are never written there.
 
 ### Connections in a script
 
@@ -299,7 +299,7 @@ The editor completes the client and its members right away, before the script ru
 The script keeps its own copy of the connection under `connections:` in its front matter (see
 [Front matter](scripts.md#front-matter)), so it runs anywhere, also in the
 [command-line runner](cli.md). Secrets stay `${secret:name}` placeholders in the file and are read
-from the Secret Store of whoever runs the script, when it runs. RunPad itself reads them only to
+from the Secret Store of whoever runs the script, when it runs. Invoklet itself reads them only to
 test a connection or to read a gRPC server's services (see below).
 
 A connection that needs libraries, such as a database driver, brings them as ordinary packages of
@@ -310,7 +310,7 @@ are and not asked about.
 
 The tab shows, for each of the script's connections, its name in code, whether it is the same as
 yours, and what would fail the build: a missing secret, a missing setting, a missing package, or a
-connection type this RunPad doesn't have. **Remove from Script** takes it out. **Import to Your
+connection type this Invoklet doesn't have. **Remove from Script** takes it out. **Import to Your
 Connections** keeps a script's connection in your own list at once, for example one that came with
 a script someone shared; if you already have a different connection of that name, choose **Replace
 Saved Connection** or **Keep Existing**.
@@ -322,7 +322,7 @@ Saved Connection** or **Keep Existing**.
 
 ### gRPC connections
 
-A gRPC server must offer [server reflection](https://grpc.io/docs/guides/reflection/): RunPad asks
+A gRPC server must offer [server reflection](https://grpc.io/docs/guides/reflection/): Invoklet asks
 it for its services when the script is opened or run, and writes their message and client classes
 with `protoc` from the Grpc.Tools package (downloaded once from NuGet). The connection's client has
 a property for each service, and its calls send the connection's metadata:
@@ -333,8 +333,8 @@ item.Dump();
 ```
 
 `Connections.Inventory.Channel` and `Connections.Inventory.CallInvoker` are there for anything
-else, such as a client RunPad didn't write. The script needs the `Grpc.Net.Client` and
-`Google.Protobuf` packages, which **Add to Script** adds. RunPad keeps what it read from the server
+else, such as a client Invoklet didn't write. The script needs the `Grpc.Net.Client` and
+`Google.Protobuf` packages, which **Add to Script** adds. Invoklet keeps what it read from the server
 and doesn't ask again on its own. After the server's services change, select the connection on the
 Dependencies window's **Connections** tab and choose **Refresh**, or use **Test Connection** in
 **Tools → Connections**; open scripts that use the connection pick up the new classes at once. The
@@ -359,7 +359,7 @@ request bodies and answers, and the models. YAML descriptions are not read.
 ### SQLite connections
 
 A SQLite connection names a database file, either a full path or one relative to the script's
-folder (so `data/shop.db` travels with the script). RunPad reads its tables and views when the
+folder (so `data/shop.db` travels with the script). Invoklet reads its tables and views when the
 script is opened or run, and the connection becomes an
 [Entity Framework Core](https://learn.microsoft.com/ef/core/) context with a set for each of them,
 named in PascalCase: the table `order_items` is `Connections.Shop.OrderItems`, of `OrderItem`
@@ -382,7 +382,7 @@ In the form, **Browse...** next to the database file picks the file, and the pat
 Views, tables without a primary key and tables whose key can be empty (`NULL`) can be read but
 not changed; computed (generated) columns are read but never written. Turn on **Read only** to open
 the file for reading only. The script needs the `Microsoft.EntityFrameworkCore.Sqlite` package,
-which **Add to Script** adds, in the release that fits the script's target framework (EF Core 8 for `net8.0`, 9 for `net9.0`, 10 otherwise). RunPad never creates the file: a file that doesn't exist fails the
+which **Add to Script** adds, in the release that fits the script's target framework (EF Core 8 for `net8.0`, 9 for `net9.0`, 10 otherwise). Invoklet never creates the file: a file that doesn't exist fails the
 build with its full path. A relative path needs the script to be saved; **Test Connection** in
 **Tools → Connections** needs a full path.
 
@@ -416,17 +416,17 @@ Connections work in C# scripts for now.
 
 | Member | What it does |
 | --- | --- |
-| `Util.CurrentQueryPath` | Full path of the running `.rpad` file, or `null` for an unsaved tab. |
+| `Util.CurrentQueryPath` | Full path of the running `.inv` file, or `null` for an unsaved tab. |
 | `Util.GetSecret(name)` | A secret saved in **Tools → Secret Store**; see [Secrets](#secrets). |
 | `Util.Cache(func, key, duration)`, `Util.CacheAsync(…)` | Returns a cached result for `key`, or runs the function and stores its result. The cache survives across runs; `duration` is an optional time-to-live. |
-| `Util.SaveString`, `Util.LoadString`, `Util.SaveBytes`, `Util.LoadBytes` | Save and load files by name in RunPad's per-user data folder. |
+| `Util.SaveString`, `Util.LoadString`, `Util.SaveBytes`, `Util.LoadBytes` | Save and load files by name in Invoklet's per-user data folder. |
 | `Util.Try(action)`, `Util.Try(func)` | Run code and get the exception back instead of having it thrown. |
 | `Util.KeepRunning()` | Keeps the script's process alive until the returned object is disposed, for timers or background work. |
 | `Util.CancellationToken` | Cancelled when you press **Stop**; see [Stopping a script](#stopping-a-script). |
 | `Util.Cmd(…)` | Runs an external program, streams its output into the Results tab and returns its exit code. An overload captures the output into a string instead. |
 
 `Util.Cache` and the `Save…` methods write files under the `UserData` folder inside
-RunPad's data folder (see [Where RunPad stores data](reference.md#where-runpad-stores-data)).
+Invoklet's data folder (see [Where Invoklet stores data](reference.md#where-invoklet-stores-data)).
 Cached entries stay there until they expire or you delete the files.
 
 ## Secret Store
@@ -445,7 +445,7 @@ var token = Util.GetSecret("api-token");
 Names are case-insensitive. A missing name raises `KeyNotFoundException` with the store's
 location. On Windows values are encrypted for your Windows account; on macOS and Linux
 they are plain text in an owner-only file. Expand **Storage and usage** to see its location.
-`RUNPAD_SECRETS_FILE` selects a different store for the application and scripts; use an
+`INVOKLET_SECRETS_FILE` selects a different store for the application and scripts; use an
 absolute path.
 
 If writing fails, the window stays open with your edits and an error message; fix the
@@ -532,7 +532,7 @@ EF Core refreshes their values after inserts and updates instead of writing assi
 **Stop** (++shift+f5++) ends a running script at once — unless the script listens for it. A script
 that uses `Util.CancellationToken`, or a Program script whose `Main` takes a `CancellationToken`,
 sees the token cancelled and gets up to 3 seconds to close files, connections and child processes
-before RunPad ends it:
+before Invoklet ends it:
 
 ```csharp
 async Task Main(string[] args, CancellationToken ct)

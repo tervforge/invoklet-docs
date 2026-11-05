@@ -1,18 +1,18 @@
 ---
 title: Installation and first run
-description: Install RunPad on Windows, macOS or Linux and set up the .NET SDK and netcoredbg.
+description: Install Invoklet on Windows, macOS or Linux and set up the .NET SDK and netcoredbg.
 ---
 
 # Installation and first run
 
-RunPad is a desktop application. To compile and run scripts it uses a .NET SDK installed
+Invoklet is a desktop application. To compile and run scripts it uses a .NET SDK installed
 on your machine, and to debug them it uses the open-source
 [netcoredbg](https://github.com/Samsung/netcoredbg) debugger. The first-run setup can
 install both for you.
 
 ## Download
 
-Download RunPad from the [releases page](https://github.com/campforge/run-pad/releases).
+Download Invoklet from the [releases page](https://github.com/campforge/run-pad/releases).
 The newest release is at the top; pick the file for your system from its **Assets**
 list:
 
@@ -20,15 +20,15 @@ list:
 
     | File | What it is |
     | --- | --- |
-    | `RunPad-win-x64.msi` | Installer. Adds a Start Menu shortcut and an entry in *Add or remove programs*. A newer version installs over the old one. |
-    | `RunPad-win-x64.zip` | Portable build. Unzip it anywhere and run `RunPad.exe`. Nothing is installed. |
+    | `Invoklet-win-x64.msi` | Installer. Adds a Start Menu shortcut and an entry in *Add or remove programs*. A newer version installs over the old one. |
+    | `Invoklet-win-x64.zip` | Portable build. Unzip it anywhere and run `Invoklet.exe`. Nothing is installed. |
 
 === "macOS"
 
     | File | What it is |
     | --- | --- |
-    | `RunPad-osx-arm64.dmg` | Disk image for Apple Silicon Macs (M1 and later). |
-    | `RunPad-osx-x64.dmg` | Disk image for Intel Macs. |
+    | `Invoklet-osx-arm64.dmg` | Disk image for Apple Silicon Macs (M1 and later). |
+    | `Invoklet-osx-x64.dmg` | Disk image for Intel Macs. |
 
     Apple menu → **About This Mac** shows which kind of Mac you have.
 
@@ -36,25 +36,25 @@ list:
 
     | File | What it is |
     | --- | --- |
-    | `runpad_<version>_amd64.deb` | Debian/Ubuntu package. Install it with `sudo dpkg -i runpad_*.deb` or your software center. It puts `runpad` on `PATH` and adds a menu entry. |
-    | `RunPad-x86_64.AppImage` | Single-file portable build. Make it executable (`chmod +x`) and run it. Nothing is installed system-wide. |
-    | `RunPad-linux-x64.tar.gz` | Archive. Unpack it and run `RunPad`. |
+    | `invoklet_<version>_amd64.deb` | Debian/Ubuntu package. Install it with `sudo dpkg -i invoklet_*.deb` or your software center. It puts `invoklet` on `PATH` and adds a menu entry. |
+    | `Invoklet-x86_64.AppImage` | Single-file portable build. Make it executable (`chmod +x`) and run it. Nothing is installed system-wide. |
+    | `Invoklet-linux-x64.tar.gz` | Archive. Unpack it and run `Invoklet`. |
 
 ## macOS
 
 For architecture selection, first-launch approval, SDK setup and troubleshooting, see
-[Installing RunPad on macOS](install-macos.md).
+[Installing Invoklet on macOS](install-macos.md).
 
 1. Open the disk image for your Mac.
-2. Drag `RunPad.app` onto the `Applications` folder shown next to it.
-3. Eject the disk image and start RunPad from Applications.
+2. Drag `Invoklet.app` onto the `Applications` folder shown next to it.
+3. Eject the disk image and start Invoklet from Applications.
 
 The build is not yet signed or notarized with an Apple Developer certificate, so on the
 first launch macOS may refuse to open it because it cannot verify the developer. To open
 it anyway:
 
 1. Open **System Settings → Privacy & Security**.
-2. Click **Open Anyway** next to the message about RunPad, then confirm.
+2. Click **Open Anyway** next to the message about Invoklet, then confirm.
 
 macOS offers that button only for a while after a blocked launch. Depending on your
 macOS version and security settings, it may not offer it at all. The disk image also
@@ -62,13 +62,13 @@ contains a `Read Me First.txt` with the same steps.
 
 ## Linux on Wayland
 
-In a Wayland session, RunPad runs natively on Wayland and draws its own window frames: rounded
+In a Wayland session, Invoklet runs natively on Wayland and draws its own window frames: rounded
 corners, a shadow, a border in the theme's colors and the same title bar in every window. The
 mouse pointer follows the desktop's cursor theme, and the interface uses the desktop's font.
 
 If a window misbehaves, turn off **Preferences → Interface → System → Native Wayland window** and
-restart RunPad: it then runs through XWayland with the system's frame. When RunPad can't start at
-all, start it with `RUNPAD_WAYLAND=0` instead.
+restart Invoklet: it then runs through XWayland with the system's frame. When Invoklet can't start at
+all, start it with `INVOKLET_WAYLAND=0` instead.
 
 On Wayland only the desktop places windows. On KDE, **Remember window position and center
 dialogs** in the same place adds two window rules to KDE's settings (System Settings → Window
@@ -77,12 +77,12 @@ screen. Turning it off removes them.
 
 ## First run: .NET SDK and debugger
 
-On slower launches, a startup screen stays visible while RunPad checks the installed tools,
+On slower launches, a startup screen stays visible while Invoklet checks the installed tools,
 and then while it reopens the scripts from your last session (*Opening scripts…*), so the
 window appears with all its tabs.
 If startup fails, it shows the log location and a **Close** button.
 
-When RunPad starts, it checks two prerequisites:
+When Invoklet starts, it checks two prerequisites:
 
 - **.NET SDK** — found when `dotnet --list-sdks` (or the dotnet path you configured)
   reports at least one SDK of version 6 or newer.
@@ -97,15 +97,15 @@ existing executable, and an **Install** button:
   on Windows, `~/.dotnet` on macOS and Linux.
 - **Install** for netcoredbg downloads the matching release from the
   [Samsung/netcoredbg](https://github.com/Samsung/netcoredbg/releases) GitHub releases
-  and extracts it into RunPad's data folder (see
-  [Where RunPad stores data](reference.md#where-runpad-stores-data)).
+  and extracts it into Invoklet's data folder (see
+  [Where Invoklet stores data](reference.md#where-invoklet-stores-data)).
 
 Both installers need internet access. A long-running install can be cancelled. You can
-also click **Continue to RunPad** without installing anything and configure the paths
+also click **Continue to Invoklet** without installing anything and configure the paths
 later in **Preferences → Languages → .NET** (fields *Dotnet path* and *Debugger path*).
 
 !!! note "What works without each prerequisite"
-    Without a .NET SDK, RunPad cannot compile or run scripts. Without netcoredbg,
+    Without a .NET SDK, Invoklet cannot compile or run scripts. Without netcoredbg,
     normal runs work but debugging does not.
 
 ## Choosing the SDK a script runs with
@@ -124,7 +124,7 @@ starts with a warning, and the status bar shows *net6.0 (not installed)*. The
 
 ## Updating and uninstalling
 
-RunPad does not update itself. To update, download the new version from the
+Invoklet does not update itself. To update, download the new version from the
 [releases page](https://github.com/campforge/run-pad/releases):
 
 - **Windows installer**: install the new `.msi` over the old one. Uninstall from
@@ -132,7 +132,7 @@ RunPad does not update itself. To update, download the new version from the
 - **Portable builds** (zip, AppImage, tar.gz): replace or delete the files.
 - **Debian package**: install the new `.deb` the same way; remove it with your package
   manager.
-- **macOS**: replace or delete `RunPad.app` in Applications.
+- **macOS**: replace or delete `Invoklet.app` in Applications.
 
 Your scripts and settings live outside the application folder, so updating or removing
-RunPad does not delete them. See [Where RunPad stores data](reference.md#where-runpad-stores-data).
+Invoklet does not delete them. See [Where Invoklet stores data](reference.md#where-invoklet-stores-data).
