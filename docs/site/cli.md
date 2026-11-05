@@ -60,8 +60,11 @@ Running with no arguments prints this usage and exits with code 2. `--help` and
   does not use the Invoklet window's build cache.
 - NuGet sources come from Invoklet's own `NuGet.Config` if the Invoklet window has created
   one; otherwise your normal NuGet settings are used.
-- [Interactive input](results.md#interactive-input) is not supported. A script that calls
-  `Util.ReadLine` waits until you press ++ctrl+c++.
+- [Interactive input](results.md#interactive-input) is asked in the terminal: the prompt goes to
+  standard error and the answer is read from standard input (a password without echo). When
+  standard input has ended, the script gets an empty answer.
+- `Util.GetSecret` and `Util.SetSecret` read and save the same Secret Store as the Invoklet
+  window; a missing secret is asked for in the terminal and kept there for next time.
 
 ### Script arguments and options
 

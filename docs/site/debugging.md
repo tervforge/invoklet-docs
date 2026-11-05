@@ -162,8 +162,6 @@ with the value 55.
 ## Limitations
 
 - *Set Next Statement* is not available.
-- `Util.ReadLine` and `Util.GetPassword` (see [interactive input](results.md#interactive-input))
-  do not work while debugging. Use a normal run for interactive scripts.
 - Debug mode needs a configured netcoredbg; without one, use normal runs.
 
 ## Troubleshooting

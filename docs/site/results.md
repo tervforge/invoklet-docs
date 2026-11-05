@@ -193,9 +193,9 @@ An input bar appears under the output tabs with the prompt. Type the answer and 
 invariant culture and works for types such as `int`, `double`, `bool` and `DateTime`.
 If the run is cancelled before you answer, the result is `null` (or the default value).
 
-Interactive input works only in a normal run in the Invoklet window. It is not available
-while debugging, and the command-line runner does not answer input requests, so such a
-script waits there until you press ++ctrl+c++.
+Interactive input works in a run and in a debug session in the Invoklet window. The
+command-line runner asks in the terminal: the prompt goes to standard error and the answer is
+read from standard input, without echo for a password.
 
 ## Secrets
 
@@ -226,9 +226,15 @@ reads the same store. To use another file, for example on a build server, set th
 `INVOKLET_SECRETS_FILE` environment variable to its path.
 
 On macOS and Linux the values are encrypted with a key kept in the system keychain (Keychain or the Secret Service), which may ask you to
-unlock it. Invoklet touches the keychain only when something needs a value: starting the program, running a script that never mentions
-`Util.GetSecret` or `Util.SetSecret` and listing the names of your secrets (in the Connections windows, say) do not. A script that reaches a
-secret in a way its own text does not show, through a library it references, gets no key: put a `Util.GetSecret` call in the script.
+unlock it. Only Invoklet and its command-line runner read that key: a script asks them for the value of the one secret it names and gets
+just that value, never the key, so the programs a script starts can't read your other secrets. Invoklet touches the keychain only when a
+script asks for a secret: starting the program, running a script that asks for none and listing the names of your secrets (in the
+Connections windows, say) do not.
+
+The first time a script asks for a secret, or saves one with `Util.SetSecret`, Invoklet asks whether it may: **Don't Allow** (the
+script gets `UnauthorizedAccessException`, and the next run asks again), **Allow Once** (until Invoklet is closed) or **Always Allow**
+(remembered for that file in Invoklet's settings). Allow only a script you trust: a script can send what it reads anywhere. The
+command-line runner doesn't ask, since you started the script yourself.
 
 ## Sidebar navigation
 
