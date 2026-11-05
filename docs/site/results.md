@@ -397,7 +397,10 @@ build with its full path. A relative path needs the script to be saved; **Test C
 ### PostgreSQL and SQL Server connections
 
 A **PostgreSQL** or **SQL Server** connection is one connection string, with `${secret:name}` for the password, and an optional **Schema** that
-limits what is read to it. Invoklet reads the database with Entity Framework Core's own reverse engineering, as `dotnet ef dbcontext scaffold` does:
+limits what is read to it. The Connections window shows the string's main settings as fields of their own (**Host**, **Port**, **Database**,
+**Username** and **Password** for PostgreSQL; **Server**, **Database**, **User** and **Password** for SQL Server) above the whole text: a field
+changes only its setting, and settings without a field (`SSL Mode=Require`, `TrustServerCertificate=true`) are written in the text and kept as
+they are. The keys the server also takes are recognised, such as `Server` for `Host` or `Initial Catalog` for `Database`. Invoklet reads the database with Entity Framework Core's own reverse engineering, as `dotnet ef dbcontext scaffold` does:
 tables, views, columns with their types, defaults and generated values, keys and foreign keys, named the way EF Core names them (`order_items` is
 the set `OrderItems` of `OrderItem` rows). The connection becomes an EF Core context like the SQLite one: `Connections.Shop.Customers`,
 navigation properties for foreign keys, and keyless views and tables that can only be read. The script needs the provider package
