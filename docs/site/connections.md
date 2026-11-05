@@ -30,8 +30,11 @@ Servers are read when you press the reload button or **Test Connection**, which 
 Write a password or token as `${secret:name}` (or pick it from **Insert secret**): the value stays
 in the [Secret Store](secrets.md) and is filled in only when the connection is used.
 `${env:NAME}` takes an environment variable instead, and `$${` writes a literal `${`.
-**Test Connection** tries the selected connection with those values. **Save** saves the list in
-`connections.json` in Invoklet's data folder; secrets are never written there.
+**Test Connection** tries the selected connection with the resolved values. **Save** writes the
+settings to `connections.json` in Invoklet's data folder. A `${secret:name}` reference is saved as
+a placeholder. A password or token entered directly in a field, header, or connection string is
+saved as part of the settings. Use placeholders for credentials, especially if you plan to share
+a script that uses the connection.
 
 ## Connections in a script
 

@@ -30,11 +30,14 @@ can prompt for its value. If no value is supplied, `Util.GetSecret` throws `KeyN
 The command-line runner reads the same store. To use another file, for example on a build server, set the
 `INVOKLET_SECRETS_FILE` environment variable to its path.
 
-On macOS and Linux the values are encrypted with a key kept in the system keychain (Keychain or the Secret Service), which may ask you to
-unlock it. Only Invoklet and its command-line runner read that key: a script asks them for the value of the one secret it names and gets
-just that value, never the key, so the programs a script starts can't read your other secrets. Invoklet touches the keychain only when a
-script asks for a secret: starting the program, running a script that asks for none and listing the names of your secrets (in the
-Connections windows, say) do not.
+On macOS and Linux, Invoklet uses Keychain or the Secret Service to store the encryption key. If
+the keychain is unavailable, Invoklet warns that a new or already unencrypted store is saved as
+plain text with permissions limited to your account. If an encrypted store's key is unavailable,
+saving fails and leaves the existing file intact.
+
+When a script calls `Util.GetSecret`, Invoklet or the CLI returns the requested value without
+passing the encryption key to the script. Starting the app or listing secret names does not
+require unlocking the keychain.
 
 ## Script access
 

@@ -240,8 +240,11 @@ The run still counts as cancelled. Under the debugger, Stop always ends the scri
 
 <a id="sidebar-navigation"></a>
 <a id="connections-in-a-script"></a>
+<a id="connections_1"></a>
 <a id="grpc-connections"></a>
+<a id="grpc-connections_1"></a>
 <a id="sqlite-connections"></a>
+<a id="sqlite-connections_1"></a>
 <a id="postgresql-and-sql-server-connections"></a>
 
 ## Connections
