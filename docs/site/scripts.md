@@ -165,19 +165,19 @@ version of the selected SDK (for example C# 14 for .NET 10).
 
 ## Conditional code for Invoklet
 
-Invoklet defines the `Invoklet` preprocessor symbol for C# and Visual Basic scripts,
+Invoklet defines the `INVOKLET` preprocessor symbol for C# and Visual Basic scripts,
 including scripts run through the CLI. Use it to keep Invoklet-specific code in a
 script that is also used by another runner:
 
 ```csharp
-#if Invoklet
+#if INVOKLET
 Console.WriteLine("Running in Invoklet");
 #else
 Console.WriteLine("Running elsewhere");
 #endif
 ```
 
-In Visual Basic, use `#If Invoklet Then` with `#Else` and `#End If`.
+In Visual Basic, use `#If INVOKLET Then` with `#Else` and `#End If`.
 
 ## Script arguments
 
