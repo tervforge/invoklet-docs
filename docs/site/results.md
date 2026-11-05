@@ -234,6 +234,8 @@ Connections windows, say) do not.
 The first time a script asks for a secret, or saves one with `Util.SetSecret`, Invoklet asks whether it may: **Don't Allow** (the
 script gets `UnauthorizedAccessException`, and the next run asks again), **Allow Once** (until Invoklet is closed) or **Always Allow**
 (remembered for that file in Invoklet's settings). Allow only a script you trust: a script can send what it reads anywhere. The
+scripts you always allowed are listed in **Tools → Secret Store** under **Scripts allowed to use secrets**; **Revoke** takes a
+script's access away at once, and it is asked again the next time. Stopping a script while the question is open closes it. The
 command-line runner doesn't ask, since you started the script yourself.
 
 ## Sidebar navigation
