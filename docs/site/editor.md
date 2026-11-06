@@ -63,11 +63,12 @@ Methods and fields of the query remain members of the query.
 Drag a tab along the strip to change the order; a line shows where it will go, and the strip scrolls
 when you carry the tab to one of its ends. Drop the tab well below the strip, or outside the window,
 and it opens in a window of its own; **Move to New Window** in the tab's context menu does the same.
-Such a window has its own tabs, the editor and the results; the connections and scripts panels stay
-in the main window. A new script opens in the window you are using, and opening a script that is
-already open brings its window forward. The window closes with its last tab. Closing the main window
-gathers every tab back into it before asking about unsaved changes, and quits Invoklet; the next
-launch opens all tabs in the main window.
+Such a window shows only that tab, with its editor and results: no tab strip, and the connections and
+scripts panels stay in the main window. Closing the window, or closing the tab with its key, puts the
+tab back into the main window as it was, unsaved changes included. New scripts always open in the
+main window, and opening a script that is already in a window of its own brings that window forward.
+Closing the main window takes every tab back into it before asking about unsaved changes, and quits
+Invoklet; the next launch opens all tabs in the main window.
 
 ## Recovering unsaved tabs
 
