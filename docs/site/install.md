@@ -94,16 +94,21 @@ window opens first. For each item it shows ✅ or ❌, a **Browse…** button to
 existing executable, and an **Install** button:
 
 - **Install** for the .NET SDK downloads Microsoft's official `dotnet-install` script
-  and installs the .NET 10 SDK channel for your user account: `%LOCALAPPDATA%\Microsoft\dotnet`
+  and installs the latest .NET 10 SDK for your user account: `%LOCALAPPDATA%\Microsoft\dotnet`
   on Windows, `~/.dotnet` on macOS and Linux.
-- **Install** for netcoredbg downloads the matching release from the
+- **Install** for netcoredbg downloads the latest release for your system from the
   [Samsung/netcoredbg](https://github.com/Samsung/netcoredbg/releases) GitHub releases
   and extracts it into Invoklet's data folder (see
   [Where Invoklet stores data](reference.md#where-invoklet-stores-data)).
 
+Before anything is downloaded, a dialog names the version and the folder it goes to; **Cancel**
+installs nothing.
+
 Both installers need internet access. A long-running install can be cancelled. You can
 also click **Continue to Invoklet** without installing anything and configure the paths
 later in **Preferences → Languages → .NET** (fields *Dotnet path* and *Debugger path*).
+With *Dotnet path* empty, Invoklet uses the `dotnet` on `PATH`, then the folder .NET was
+installed to, then the usual install folders of your system, and `~/.dotnet` last.
 
 !!! note "What works without each prerequisite"
     Without a .NET SDK, Invoklet cannot compile or run scripts. Without netcoredbg,
@@ -117,10 +122,14 @@ toolbar above the editor shows and changes it:
 - **latest (.NET 10.0.100)** — the newest installed stable SDK; the file keeps
   `targetSdk: latest`, so the script moves to a newer SDK when you install one.
 - **.NET 8.0.400** and the other entries — the newest installed SDK of each .NET version
-  from .NET 6 upwards; picking one writes its version (`targetSdk: net8.0`) to the file.
+  from .NET 6 to .NET 10; picking one writes its version (`targetSdk: net8.0`) to the file.
+  An SDK newer than .NET 10, a preview included, is not listed until Invoklet's C# compiler
+  supports it.
+- The list comes from the *Dotnet path* in **Preferences → Languages → .NET** (by default the
+  `dotnet` on `PATH`): SDKs installed beside another `dotnet` don't appear.
 
-If the version a script names isn't installed, it runs on the newest SDK: the Results tab
-starts with a warning, and the status bar shows *net6.0 (not installed)*. The
+If the version a script names isn't available, it runs on the newest SDK: the Results tab
+starts with a warning, and the status bar shows *net6.0 (not available)*. The
 [command-line runner](cli.md) follows the same rule. See [Front matter](scripts.md#front-matter).
 
 ## Updating and uninstalling

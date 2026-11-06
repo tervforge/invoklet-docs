@@ -56,8 +56,10 @@ Running with no arguments prints this usage and exits with code 2. `--help` and
 - The script runs on the SDK its `targetSdk` names, found by `dotnet --list-sdks` on `PATH`
   (`latest`: the newest stable one). If that version isn't installed, the newest SDK runs it
   and a warning goes to standard error.
-- Each run compiles into a new temporary folder that is deleted afterwards. The runner
-  does not use the Invoklet window's build cache.
+- Each script is built in a folder of its own that is kept between runs, so an unchanged script
+  is not compiled again. The folders are separate from the Invoklet window's. A script that is
+  already running in another terminal is built in a temporary folder instead. Folders unused for
+  14 days are removed.
 - NuGet sources come from Invoklet's own `NuGet.Config` if the Invoklet window has created
   one; otherwise your normal NuGet settings are used.
 - [Interactive input](results.md#interactive-input) is asked in the terminal: the prompt goes to
@@ -91,7 +93,7 @@ runner options, which produce an error. Always use `--` when passing option-like
 | --- | --- |
 | `--kind`, `-k`, `-lang=<kind>` | Override `Statements`, `Program` or `Expression`; `s`, `p`, `e` also work. `VBStatements`, `VBProgram` and `VBExpression` require a Visual Basic file; they do not translate C# code. |
 | `--sdk`, `-s` | Override `targetSdk`, for example `10`, `10.0`, `net10.0` or `latest`. The normal installed-SDK selection and warning rules apply. |
-| `--compile-only`, `-compileonly` | Check compilation and report diagnostics without executing the script. The temporary compilation output is removed afterwards. |
+| `--compile-only`, `-compileonly` | Check compilation and report diagnostics without executing the script. |
 | `--refresh-connections` | Read every connection's description again before the build, such as a gRPC server's services after they changed. Without it, a description Invoklet already read is reused. |
 | `--help`, `-h`, `-?` | Show usage. |
 | `--version` | Show the runner version. |

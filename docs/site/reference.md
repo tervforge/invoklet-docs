@@ -152,6 +152,7 @@ name in the Assembly Explorer goes to its definition.
 | Files written by `Util.Cache` and `Util.SaveString`/`SaveBytes` | `UserData` folder in Invoklet's data folder |
 | Logs | `logs` folder in Invoklet's data folder |
 | Build output | `Invoklet` folder in the system temporary folder. A saved script keeps its build folder between runs; folders unused for 14 days are removed when Invoklet starts. |
+| Build output of the `invoklet` command | `cli-builds` folder in Invoklet's data folder, one folder for each script; folders unused for 14 days are removed. |
 
 Invoklet's data folder is:
 
