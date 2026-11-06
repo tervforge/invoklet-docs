@@ -97,6 +97,7 @@ runner options, which produce an error. Always use `--` when passing option-like
 | `--kind`, `-k`, `-lang=<kind>` | Override `Statements`, `Program` or `Expression`; `s`, `p`, `e` also work. `VBStatements`, `VBProgram` and `VBExpression` require a Visual Basic file; they do not translate C# code. |
 | `--sdk`, `-s` | Override `targetSdk`, for example `10`, `10.0`, `net10.0` or `latest`. The normal installed-SDK selection and warning rules apply. |
 | `--compile-only`, `-compileonly` | Check compilation and report diagnostics without executing the script. |
+| `--quiet`, `-q` | Write no warnings (the compiler's, a `targetSdk` that isn't installed) and no stages, only errors and the script's own output. |
 | `--refresh-connections` | Read every connection's description again before the build, such as a gRPC server's services after they changed. Without it, a description Invoklet already read is reused. |
 | `--help`, `-h`, `-?` | Show usage. |
 | `--version` | Show the runner version. |

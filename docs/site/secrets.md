@@ -43,7 +43,9 @@ require unlocking the keychain.
 
 The first time a script asks for a secret, or saves one with `Util.SetSecret`, Invoklet asks whether it may: **Don't Allow** (the
 script gets `UnauthorizedAccessException`, and the next run asks again), **Allow Once** (until Invoklet is closed) or **Always Allow**
-(remembered for that file in Invoklet's settings). Allow only a script you trust: a script can send what it reads anywhere. The
-scripts you always allowed are listed in **Tools → Secret Store** under **Scripts allowed to use secrets**; **Revoke** takes a
-script's access away at once, and it is asked again the next time. Stopping a script while the question is open closes it. The
-command-line runner doesn't ask, since you started the script yourself.
+(remembered for that file in Invoklet's settings, with its contents). Allow only a script you trust: a script can send what it reads
+anywhere. Your own edits, saved in Invoklet, keep the script allowed; if another program changes the file (a new download, a copy
+put in its place), Invoklet asks again. A script allowed earlier that replaces or removes a secret already in the store asks
+**Replace** or **Remove** for that one secret. The scripts you always allowed are listed in **Tools → Secret Store** under
+**Scripts allowed to use secrets**; **Revoke** takes a script's access away at once, and it is asked again the next time. Stopping
+a script while the question is open closes it. The command-line runner doesn't ask, since you started the script yourself.

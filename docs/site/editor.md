@@ -58,6 +58,17 @@ Other helper types remain nested in the query. If an extension class uses a help
 make that type `internal` or `public` so it is accessible from the extension class.
 Methods and fields of the query remain members of the query.
 
+## Arranging tabs and windows
+
+Drag a tab along the strip to change the order; a line shows where it will go, and the strip scrolls
+when you carry the tab to one of its ends. Drop the tab well below the strip, or outside the window,
+and it opens in a window of its own; **Move to New Window** in the tab's context menu does the same.
+Such a window has its own tabs, the editor and the results; the connections and scripts panels stay
+in the main window. A new script opens in the window you are using, and opening a script that is
+already open brings its window forward. The window closes with its last tab. Closing the main window
+gathers every tab back into it before asking about unsaved changes, and quits Invoklet; the next
+launch opens all tabs in the main window.
+
 ## Recovering unsaved tabs
 
 **Preferences → Editor → Restore open tabs and unsaved changes** keeps your workspace locally when you exit

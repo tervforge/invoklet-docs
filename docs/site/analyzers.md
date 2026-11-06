@@ -95,13 +95,14 @@ adds the namespace for each unresolved type that has exactly one candidate.
 
 ## A secret written to the output
 
-Invoklet warns (`INV0001`) when the value of `Util.GetSecret` reaches `.Dump()` or
-`Console.Write`/`WriteLine`, directly or through a variable, a string built from it, `?:` or
-`??`. What a run writes is shown in the results and saved with the script's output, so the
+Invoklet warns (`INV0001`) when the value of `Util.GetSecret`, or a connection's connection
+string with a `${secret:…}` in it, reaches `.Dump()`, `Console.Write`/`WriteLine` (also
+`Console.Error`), `Debug.Write*` or `Trace.Write*`, directly or through a variable, a string built
+from it, `?:` or `??`. A secret passed to a method of your own is not followed into it. What a run writes is shown in the results and saved with the script's output, so the
 secret would no longer be kept only in the Secret Store. The lightbulb offers **Remove .Dump() of
 the secret '…'**, which takes away only the `.Dump()` call (`Util.GetSecret("api").Dump();` becomes
 `Util.GetSecret("api");`; a line left as just `token;` is removed), or **Remove the output of the
-secret '…'** for a `Console` line. What is computed from a secret, such as its length, is not
+secret '…'** for a line that writes it. What is computed from a secret, such as its length, is not
 warned about. The warning is always on.
 
 ## Settings
