@@ -60,6 +60,10 @@ Methods and fields of the query remain members of the query.
 
 ## Arranging tabs and windows
 
+A tab that is not chosen shows its state where the chosen tab has its close button: a grey dot when
+nothing has happened to it, a coloured dot for unsaved changes, a triangle while it runs or is debugged, two bars when paused and a warning sign
+when its last run failed. Its tooltip names the state. Pointing at the tab brings the close button back.
+
 Drag a tab along the strip to change the order; a line shows where it will go, and the strip scrolls
 when you carry the tab to one of its ends. Drop the tab well below the strip, or outside the window,
 and it opens in a window of its own; **Move to New Window** in the tab's context menu does the same.
@@ -235,6 +239,10 @@ All of these keys can be changed in **Preferences → Keyboard**, and the button
 the keys you assigned. On a narrow window the strip keeps every button within reach.
 
 ## Folding, display and zoom
+
+The marks at the edge of the scroll bar show errors, warnings, information, breakpoints and the current
+line of a debug run across the whole script. Click a mark to go to its line, or point at it to read what
+it stands for. Where several lines share a mark, it shows the most important of them.
 
 - **Folding**: multi-line C# blocks fold at braces; a one-line `{ … }` block does not get
   a folding arrow. Visual Basic blocks fold at keyword pairs such as `Sub` … `End Sub`.
