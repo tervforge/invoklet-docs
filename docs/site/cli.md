@@ -60,6 +60,9 @@ Running with no arguments prints this usage and exits with code 2. `--help` and
   is not compiled again. The folders are separate from the Invoklet window's. A script that is
   already running in another terminal is built in a temporary folder instead. Folders unused for
   14 days are removed.
+- In a terminal, what happens before the script starts goes to standard error: the connections
+  whose schemas are read and the NuGet packages being downloaded (`Restoring packages: downloading
+  …`). When standard error is redirected, these lines are left out.
 - NuGet sources come from Invoklet's own `NuGet.Config` if the Invoklet window has created
   one; otherwise your normal NuGet settings are used.
 - [Interactive input](results.md#interactive-input) is asked in the terminal: the prompt goes to
