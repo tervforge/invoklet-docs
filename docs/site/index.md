@@ -13,6 +13,8 @@ Invoklet is a free, open-source C# scratchpad for Windows, macOS and Linux.
 - [Debug](debugging.md) with breakpoints, conditions, stepping, watches and exception breaks
 - [Explore results with `.Dump()`](results.md): tables, live updates, progress bars and interactive input
 - [Add NuGet packages](dependencies.md) with the built-in package manager, or reference any `.dll`
+- [Reuse typed arguments and presets](dependencies.md#script-arguments) in the editor or the CLI
+- [Connect to APIs and databases](connections.md) and keep credentials in the [Secret Store](secrets.md)
 - [Read decompiled code](assembly-explorer.md) in an ILSpy-style Assembly Explorer
 - [Import `.linq` queries](cli.md#importing-linq-queries) and run them with few or no changes
 - [Markdown-compatible scripts](scripts.md): keep notes and runnable code together in `.inv` files,

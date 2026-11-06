@@ -16,14 +16,19 @@ nav:
       - Installing on macOS: install-macos.md
       - Quick start: quick-start.md
       - Examples: examples.md
-  - Using Invoklet:
+  - Writing scripts:
       - Scripts and .inv files: scripts.md
       - Editor: editor.md
       - Diagnostics and analyzers: analyzers.md
+      - Packages and references: dependencies.md
+  - Running and debugging:
       - Debugging: debugging.md
       - Results and runtime helpers: results.md
-      - Packages and references: dependencies.md
       - Assembly Explorer: assembly-explorer.md
+  - Connections and credentials:
+      - Connections: connections.md
+      - Secret Store: secrets.md
+  - Command line and integrations:
       - Command line and .linq import: cli.md
       - View your scripts in Obsidian: obsidian.md
   - Reference: reference.md

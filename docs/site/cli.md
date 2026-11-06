@@ -17,7 +17,7 @@ macros) and `namespaces` the same way the Invoklet window does.
     that the `.deb` package puts on `PATH` starts the Invoklet window, not this runner.
 
     The runner is the `Invoklet.Cli` project in the
-    [Invoklet source code](https://github.com/campforge/run-pad). Build it from a clone with
+    [Invoklet source code](https://github.com/tervforge/invoklet). Build it from a clone with
     the .NET 10 SDK:
 
     ```bash
@@ -150,8 +150,8 @@ Invoklet converts `.linq` query files to `.inv` scripts.
 | `<Reference>` (or its `Relative` attribute) | `references:` entry |
 | The code after `</Query>` | The run block, under a heading with the file name |
 
-!!! note "Unreleased: C# namespace imports"
-    C# `.linq` imports now write LINQPad's standard namespace profile into the converted
+!!! note "C# namespace imports"
+    C# `.linq` imports write LINQPad's standard namespace profile into the converted
     file's `namespaces`, together with explicit `<Namespace>` entries, without exact duplicates.
     This includes `System.Text`, `System.Data` and `System.Xml.Linq`. These imports are editable
     script metadata used by both compilation and the editor. Existing `.inv` files, new ordinary

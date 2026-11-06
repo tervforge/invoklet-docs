@@ -13,7 +13,7 @@ shortcut.
 
 | Menu | Commands |
 | --- | --- |
-| **File** | New File, New RPad File, Open..., Quick Open..., Recent Files, Open Text File..., Import .linq Query..., Save, Save As..., Export Results as HTML..., Revert to Saved, Close Tab, Exit (++cmd+q++ on macOS) |
+| **File** | New File, New Invoklet File, Open..., Quick Open..., Recent Files, Open Text File..., Import .linq Query..., Save, Save As..., Export Results as HTML..., Revert to Saved, Close Tab, Exit (++cmd+q++ on macOS) |
 | **Edit** | Undo, Redo, Cut, Copy, Paste, Select All, Format Document, Format Selection, Go to Line..., Resolve All Usings |
 | **View** | Toggle File Tree, Toggle Output Panel, Markdown Preview, Markdown Preview to the Side, Zoom In, Zoom Out, Reset Zoom |
 | **Run** | Run / Continue, Stop, Execute Selection, Clear Results, Stop and Run Again, Debug Mode, Step Over, Step Into, Step Out, Pause, Run to Cursor |
@@ -27,7 +27,8 @@ quits, from any Invoklet window.
 ## Preferences
 
 Open **Tools → Preferences...**. Settings are grouped in a tree on the left; type in
-*Search settings...* to filter it. Changes apply immediately.
+*Search settings...* to find a page or a setting by its label, description, options, or value.
+Invoklet opens the first matching page and highlights the matches. Changes apply immediately.
 
 <figure markdown="span">
   [![The Interface page of Preferences: interface scale, appearance and the interface and editor themes](assets/screenshots/preferences_light.png#only-light)](assets/screenshots/preferences_light.png "Open full-size screenshot")
@@ -40,10 +41,10 @@ Open **Tools → Preferences...**. Settings are grouped in a tree on the left; t
 | **Interface → System** | What Invoklet does differently on this system. On Linux: *Native Wayland window* (on by default; see [Linux on Wayland](install.md#linux-on-wayland)) and, on KDE, *Remember window position and center dialogs*. |
 | **Editor** | *Restore open tabs and unsaved changes* (on by default; see [Recovering unsaved tabs](editor.md#recovering-unsaved-tabs)). Font family, font size and *Code zoom*; show line numbers, code folding, tabs, spaces, end of line, column ruler (column 80); word wrap; *Accept completion when typing punctuation*; *New files* (File → New File): language and kind. |
 | **Keyboard** | Every key binding, grouped by area, with Reset and conflict warnings; see [Keyboard shortcuts](#keyboard-shortcuts). |
-| **Languages → .NET** | *Dotnet path* (default `dotnet`, found on `PATH`) and *Debugger path* (the `netcoredbg` executable). Shared by C# and Visual Basic. |
+| **Languages → .NET** | *Dotnet path* (auto-detected from `PATH` and standard installation directories) and *Debugger path* (the `netcoredbg` executable). Shared by C# and Visual Basic. |
 | **Languages → .NET → C#** | *Inlay hints*; *Code fixes and refactorings (lightbulb)*; *Excluded diagnostic IDs*. See [Diagnostics and analyzers](analyzers.md#settings). |
 | **Logging** | What Invoklet writes about its own work to the `logs` folder and the console: *Off* (nothing, and no log file), *Fatal errors only* (crashes of Invoklet itself and a start that failed; the default), *Errors*, *Warnings*, *Information* or *Debug* (everything, including parts of your scripts). Takes effect at once. |
-| **Experimental** | Features that are not finished yet, all off by default: *Invoklet analyzers* (`RPAD…` warnings). See the experimental analysis settings described below. |
+| **Experimental** | *Invoklet analyzers* (`RPAD…` warnings in C# scripts), off by default. |
 | **Languages → .NET → Visual Basic** | No settings yet. |
 
 ## Keyboard shortcuts
@@ -170,8 +171,8 @@ is empty and Run does nothing, or the command-line runner prints
 
 - Run `dotnet --list-sdks` in a terminal. Invoklet needs at least one SDK of version 6 or
   newer.
-- If the SDK is installed but not on `PATH` for desktop apps (common when Invoklet is
-  started from the macOS Dock or Finder), set the full path in
+- If Invoklet cannot find the SDK in its standard locations, or you installed it in a custom
+  folder, set the full path to the executable in
   **Preferences → Languages → .NET → Dotnet path**, for example
   `/usr/local/share/dotnet/dotnet` on macOS or `C:\Program Files\dotnet\dotnet.exe` on
   Windows.

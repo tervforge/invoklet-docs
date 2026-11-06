@@ -195,4 +195,4 @@ always runs with your full permissions, with or without it.
 
 The **Connections** tab adds your saved connections (Tools → Connections) to the script, so its
 code gets a client for each, and keeps a script's connection in your own list. See
-[Connections in a script](results.md#connections-in-a-script).
+[Connections in a script](connections.md#connections-in-a-script).

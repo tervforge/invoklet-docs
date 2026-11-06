@@ -37,9 +37,6 @@ Change or disable both shortcuts in **Preferences → Keyboard**.
 
 ## Extension methods in C# Program scripts
 
-!!! note "Unreleased"
-    This support is not included in Invoklet 0.8.0.
-
 In **Program** mode, put extension methods in a top-level static class alongside `Main`:
 
 ```csharp

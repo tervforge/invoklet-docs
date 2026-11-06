@@ -28,7 +28,7 @@ recent scripts first. Use **Up** and **Down** to choose and **Enter** (or **Open
 
 ## File format
 
-A Invoklet script is a plain-text `.inv` file. It is a Markdown document with:
+An Invoklet script is a plain-text `.inv` file. It is a Markdown document with:
 
 1. a YAML **front matter** block between two `---` lines at the very top;
 2. exactly one **run block**: a fenced code block whose info string is `csharp run` or
@@ -114,7 +114,7 @@ All fields are optional. A missing or empty value falls back to the default.
 | `references` | none | Paths to `.dll` files. See [Packages and references](dependencies.md). |
 | `namespaces` | none | Namespaces imported for the whole script, like global `using` (C#) or project-level `Imports` (VB). |
 | `args` | empty list | String arguments passed to the script when running or debugging. CLI arguments can override this list for one invocation. |
-| `connections` | none | The script's connections: each a `name`, a `driver` (such as `http`, `grpc` or `sqlite`) and its `params`. Add them in the Dependencies window; see [Connections in a script](results.md#connections-in-a-script). |
+| `connections` | none | The script's connections: each a `name`, a `driver` (such as `http`, `grpc` or `sqlite`) and its `params`. Add them in the Dependencies window. See [Connections in a script](connections.md#connections-in-a-script). |
 | `allowUnsafe` | `false` | C# only: `true` compiles the script with unsafe code allowed. Written only when on. See [Compilation](dependencies.md#compilation). |
 
 Field names are case-sensitive camelCase (`targetSdk`, not `TargetSdk`). The values of
