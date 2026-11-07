@@ -51,6 +51,7 @@ How values are shown:
 - A collection of objects becomes a table with one column per public property or field.
   A collection of simple values becomes a two-column table (`#`, `Value`).
 - The first row of each table and object has its type and size (`String[2]`, `List<Int32> (2 items)`), an arrow to fold it and a **…** menu; a heading is a line above it.
+- With the results focused, Tab and Shift+Tab go through the arrows and menus, and Enter or Space uses the one marked.
 - Nested objects and collections start folded: click the arrow to open one in place. All their
   values were read when `.Dump()` ran, up to **3 levels** by default, so they open after the script
   has ended and after a restart. Deeper values show as text.
