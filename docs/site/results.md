@@ -25,7 +25,12 @@ Under the editor are three tabs:
 The button with the panel icon in the toolbar shows or hides the output area.
 
 The **Output settings** gear at the right of the tabs has *Wrap long lines in results*: output,
-errors and `.Dump()` text then wrap at the pane's width instead of scrolling sideways. The same
+errors and `.Dump()` text then wrap at the pane's width instead of scrolling sideways.
+*Head a dump with its expression*, off by default, heads `people.Dump()` with its source text, "people", and an accent bar.
+A heading you pass, as in `people.Dump("Team")`, and the type in the first row of a table always show,
+and nothing has to run again. *Keep the last output after closing*, when off, keeps no output on disk: a script
+opened again starts with empty results, and an earlier file goes when the script is next opened or run. What
+the tab shows stays until then. Each run starts with empty results either way. The same
 menu has the debugger's [exception break options](debugging.md#breaking-on-exceptions).
 
 ## `.Dump()`
@@ -45,8 +50,10 @@ How values are shown:
 
 - A collection of objects becomes a table with one column per public property or field.
   A collection of simple values becomes a two-column table (`#`, `Value`).
-- Nested objects and collections become nested tables, expanded up to **3 levels** by
-  default.
+- The first row of each table and object has its type and size (`String[2]`, `List<Int32> (2 items)`), an arrow to fold it and a **…** menu; a heading is a line above it.
+- Nested objects and collections start folded: click the arrow to open one in place. All their
+  values were read when `.Dump()` ran, up to **3 levels** by default, so they open after the script
+  has ended and after a restart. Deeper values show as text.
 - Collections show at most **1000 rows** by default; the rest is summarized as
   "… N more".
 - Strings are shown in quotes and very long strings are shortened. `null` is shown as
@@ -111,11 +118,11 @@ A type can control which members `.Dump()` shows by implementing `ICustomMemberP
 in the results panel as one HTML page, with the colours of the current theme, that opens in any browser. The suggested name is the
 script's own, in its folder. A tab with no results says so instead of saving an empty page.
 
-Every table in the results has a **…** button in the header of its last column. Click it and choose **Export to CSV…** to save that table as a CSV file: the column names
+Every table in the results has a **…** button in its first row. Click it and choose **Export to CSV…** to save that table as a CSV file: the column names
 first, then a line for each row, the values as the results show them (a `null` is an empty field). A table inside a cell of another is
 the text of that cell. The file is UTF-8 with a byte order mark, so Excel reads accented letters and other scripts right. A field that
 would be read as a formula (it starts with `=`, `+`, `@`, or `-` followed by something that is not a number) gets a `'` in front, so that
-opening the file in a spreadsheet cannot run it. The suggested name is the script's, with `-2` for the second table when there are several.
+opening the file in a spreadsheet cannot run it. The suggested name is the script's, and a folded table is saved whole. Output kept from an earlier version has its button in the header of the last column, with `-2` in the name for the second table.
 
 ## Highlights, styles and headings
 
