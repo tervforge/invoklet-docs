@@ -49,3 +49,19 @@ put in its place), Invoklet asks again. A script allowed earlier that replaces o
 **Replace** or **Remove** for that one secret. The scripts you always allowed are listed in **Tools → Secret Store** under
 **Scripts allowed to use secrets**; **Revoke** takes a script's access away at once, and it is asked again the next time. Stopping
 a script while the question is open closes it. The command-line runner doesn't ask, since you started the script yourself.
+
+For an unsaved script, permission applies only to its current run. A different unsaved script or a later run asks again.
+
+## Named paths
+
+Use **Tools → Path Store** to name a file or folder that can be in a different place on each machine.
+Enter a full path or start it with `~` for your home folder. You can save a path before its file or
+folder exists. When it moves, update the entry in Path Store and keep using the same name in your scripts.
+
+```csharp
+var dataFolder = Util.GetPath("data");
+```
+
+Names are case-insensitive. An unknown name throws `KeyNotFoundException`.
+Path Store saves plain text in `paths.json`. The app and the CLI use the same file, and
+`INVOKLET_PATHS_FILE` can point both at another one. Scripts read named paths without a prompt.
