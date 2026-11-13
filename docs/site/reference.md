@@ -43,7 +43,7 @@ Invoklet opens the first matching page and highlights the matches. Changes apply
 | **Keyboard** | Every key binding, grouped by area, with Reset and conflict warnings; see [Keyboard shortcuts](#keyboard-shortcuts). |
 | **Languages → .NET** | *Dotnet path* (auto-detected from `PATH` and standard installation directories) and *Debugger path* (the `netcoredbg` executable). Shared by C# and Visual Basic. |
 | **Languages → .NET → C#** | *Inlay hints*; *Code fixes and refactorings (lightbulb)*; *Excluded diagnostic IDs*. See [Diagnostics and analyzers](analyzers.md#settings). |
-| **Plugins** | Read-only list of loaded and rejected plugins, with reasons for rejection. *Refresh* checks the inventory for changes. *Restart now* applies pending changes after the usual confirmation for unsaved work. |
+| **Plugins** | Lists loaded and rejected plugins with verification status and diagnostics. Install, enable, disable, or remove [theme packages](themes.md). *Refresh* checks the inventory for changes. *Restart now* applies pending changes after the usual confirmation for unsaved work. |
 | **Logging** | What Invoklet writes about its own work to the `logs` folder and the console: *Off* (nothing, and no log file), *Fatal errors only* (crashes of Invoklet itself and a start that failed; the default), *Errors*, *Warnings*, *Information* or *Debug* (everything, including parts of your scripts). Takes effect at once. |
 | **Experimental** | *Invoklet analyzers* (`RPAD…` warnings in C# scripts), off by default. |
 | **Languages → .NET → Visual Basic** | No settings yet. |
@@ -112,6 +112,8 @@ On macOS, function keys may need the ++fn++ key, depending on your keyboard sett
 | Format Selection | ++ctrl+shift+f++ | ++cmd+shift+f++ |
 | Go to Line | ++ctrl+g++ | ++ctrl+g++ |
 | Resolve All Usings | ++ctrl+alt+u++ | ++cmd+alt+u++ |
+
+If the script changes while Rename Symbol is in progress, Invoklet cancels the rename. Press ++f2++ again on the updated code.
 
 ### File tree
 

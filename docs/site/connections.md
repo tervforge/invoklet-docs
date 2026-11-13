@@ -34,7 +34,9 @@ in the [Secret Store](secrets.md) and is filled in only when the connection is u
 settings to `connections.json` in Invoklet's data folder. A `${secret:name}` reference is saved as
 a placeholder. A password or token entered directly in a field, header, or connection string is
 saved as part of the settings. Use placeholders for credentials, especially if you plan to share
-a script that uses the connection.
+a script that uses the connection. Literal parts of PostgreSQL and SQL Server connection strings,
+HTTP and OpenAPI headers, and gRPC metadata are passed to the script at startup. Secret and
+environment placeholders are resolved when the client is first used.
 
 ## Connections in a script
 
@@ -199,6 +201,11 @@ Connections can be reordered or moved between groups with the context menu, keyb
 drag and drop. A connection can also be dragged onto the editor, or added with **Add to Script**.
 The sidebar remembers which sections, connection groups and sample folders were expanded between
 launches. Grouping is local navigation state and does not change a script's `connections:` metadata.
+
+Invoklet ships HTTP, OpenAPI, gRPC, SQLite, PostgreSQL and SQL Server drivers as plugins.
+Manage their startup state under **Preferences → Plugins**. A disabled driver becomes unavailable
+after restarting Invoklet. The CLI uses the same plugin settings.
+To add a driver of your own, follow [Write a connector plugin](connector-plugins.md).
 
 Connection rows show whether a connection is used by the active script and explain missing drivers,
 secrets, environment variables or unavailable/stale contracts. Use **Refresh** on a connection, or

@@ -19,6 +19,8 @@ nav:
   - Writing scripts:
       - Scripts and .inv files: scripts.md
       - Editor: editor.md
+      - Themes: themes.md
+      - Theme keys: theme-keys.md
       - Diagnostics and analyzers: analyzers.md
       - Packages and references: dependencies.md
   - Running and debugging:
@@ -28,6 +30,9 @@ nav:
   - Connections and credentials:
       - Connections: connections.md
       - Secret Store: secrets.md
+  - Extending Invoklet:
+      - Create a theme: create-theme.md
+      - Write a connector plugin: connector-plugins.md
   - Command line and integrations:
       - Command line and .linq import: cli.md
       - View your scripts in Obsidian: obsidian.md
