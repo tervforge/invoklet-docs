@@ -90,6 +90,13 @@ example:
 Refactorings appear after the caret rests for a moment; fixes follow the background
 analysis of your edits.
 
+**Fix All** appears when the same action supports bulk application at multiple
+locations in the script, including on the same line. Choose the method, class, or
+script scope to apply that action to matching diagnostics in that scope.
+
+**Suppress in this script** adds a warning directive at the start of the script.
+**Hide fixes in all scripts** removes the rule's actions from the lightbulb menu.
+
 To add every missing namespace at once, use **Resolve All Usings** (++ctrl+alt+u++). It
 adds the namespace for each unresolved type that has exactly one candidate.
 

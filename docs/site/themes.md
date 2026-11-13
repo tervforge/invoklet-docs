@@ -12,6 +12,10 @@ launch. VS Code, Rider and VS 2022 are available from the separate
 [Invoklet custom themes repository](https://github.com/tervforge/invoklet-custom-themes).
 Each package contains a light and a dark palette.
 
+If your saved palette is unavailable after updating Invoklet, **Preferences → Appearance**
+shows which palette is missing and which embedded palette is active. The saved choice is
+kept and is applied again after the package is installed and Invoklet restarts.
+
 ## Installing additional themes
 
 A theme package contains an `invoklet-plugin.json` manifest and one or more JSON theme definitions.

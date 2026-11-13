@@ -115,7 +115,7 @@ editor windows are not restored.
 ## Highlighting
 
 - **Syntax highlighting** uses TextMate grammars for both languages. Choose the color
-  theme in **Preferences → Interface → Editor theme**; the defaults are *Dark+* and
+  theme in **Preferences → Appearance → Editor theme**; the defaults are *Dark+* and
   *Light+*.
 - **Semantic highlighting** (C#) colors identifiers by what they are after Roslyn has
   analyzed the code: types, interfaces, methods, properties, fields, events and

@@ -149,6 +149,14 @@ Util.WithCssClass("overdue", "late").Dump();
 
 The terminal runner shows the value and ignores the styles.
 
+Use `Util.Code(source, language).Dump()` to show code in Results. The language is a
+`CodeLanguage` enum value. Choose `CSharp`, `Sql`, `Json`, `Xml`, or `PlainText`.
+The default is `CSharp`. The copy icon in the top-right corner copies the original source.
+
+```csharp
+Util.Code("SELECT Id, Name FROM Users;", CodeLanguage.Sql).Dump("SQL");
+```
+
 `HighlightIf` highlights only when the condition holds and otherwise returns the value as it is. In the
 [command-line runner](cli.md) a highlight is shown with a yellow background and a heading as an underlined line; a
 style is not applied there.
