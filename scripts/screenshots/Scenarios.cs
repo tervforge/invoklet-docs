@@ -11,6 +11,7 @@ using Invoklet.Contracts.Connections;
 using Invoklet.Format.MdRun;
 using Invoklet.Services.Connections;
 using Invoklet.Services.Secrets;
+using Invoklet.Secrets;
 using Invoklet.Services;
 using Invoklet.Services.Preferences;
 using Invoklet.Services.Scaling;
@@ -35,7 +36,10 @@ public sealed class Ctx : IAsyncDisposable
     public static async Task<Ctx> Create(double width = 1100, double height = 700, Action<MemoryPrefs>? configure = null,
         bool sampleConnections = true)
     {
-        var temp = Directory.CreateTempSubdirectory("Invoklet-shots").FullName;
+        var tempRoot = Path.Combine(Path.GetDirectoryName(Program.Out)!, ".screenshot-temp");
+        Directory.CreateDirectory(tempRoot);
+        var temp = Path.Combine(tempRoot, "Invoklet-shots-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(temp);
         var root = Path.Combine(temp, "Invoklet Queries");
         Directory.CreateDirectory(root);
         var prefs = new MemoryPrefs();
@@ -60,8 +64,12 @@ public sealed class Ctx : IAsyncDisposable
         await Pump(500);
         return new Ctx
         {
-            Prefs = prefs, Services = sp, Window = window, Vm = (MainWindowViewModel)window.DataContext!,
-            Tabs = sp.GetRequiredService<EditorTabsControl>(), Root = root,
+            Prefs = prefs,
+            Services = sp,
+            Window = window,
+            Vm = (MainWindowViewModel)window.DataContext!,
+            Tabs = sp.GetRequiredService<EditorTabsControl>(),
+            Root = root,
         };
     }
 
@@ -525,7 +533,9 @@ public static class Scenarios
         var ws = c.Services.GetRequiredService<IWindowService>();
         var window = new AssemblyExplorerWindow(c.Services.GetRequiredService<IThemeService>(), ws, c.Root)
         {
-            Preferences = c.Prefs, Width = 1100, Height = 720,
+            Preferences = c.Prefs,
+            Width = 1100,
+            Height = 720,
         };
         window.Show(c.Window);
         await Pump(1000);

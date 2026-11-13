@@ -22,6 +22,7 @@ using Invoklet.Services.Preferences;
 using Invoklet.Services.Recovery;
 using Invoklet.Services.Scaling;
 using Invoklet.Services.Setup;
+using Invoklet.Secrets;
 using Invoklet.UserControls;
 using Invoklet.Windows;
 using Invoklet.Windows.Models;
@@ -46,6 +47,7 @@ public sealed class MemoryPrefs : IPreferencesService
     public SessionSettings Session { get; } = new();
     public ExperimentalSettings Experimental { get; } = new();
     public LoggingSettings Logging { get; } = new();
+    public SecretsSettings Secrets { get; } = new();
     public Dictionary<string, bool> System { get; } = [];
     public void Save() => Changed?.Invoke();
     public event Action? Changed;
@@ -153,7 +155,7 @@ public static class Program
         services.AddTransient<DependenciesWindow>();
         services.AddSingleton<EditorTabsControl>();
         // Connections and secrets in a temporary folder next to the scripts, with the built-in drivers.
-        services.AddSingleton<Invoklet.Services.Secrets.ISecretStore>(_ => new Invoklet.Services.Secrets.FileSecretStore(Path.GetFullPath(Path.Combine(root, "..", "secrets.json"))));
+        services.AddSingleton<Invoklet.Secrets.ISecretStore>(_ => new Invoklet.Secrets.FileSecretStore(Path.GetFullPath(Path.Combine(root, "..", "secrets.json"))));
         services.AddSingleton<Invoklet.Services.Connections.IConnectionStore>(_ => new Invoklet.Services.Connections.FileConnectionStore(Path.GetFullPath(Path.Combine(root, "..", "connections.json"))));
         services.AddSingleton(_ =>
         {
@@ -167,7 +169,7 @@ public static class Program
         services.AddSingleton(sp => new Invoklet.UserControls.Models.ConnectionNavigationViewModel(
             sp.GetRequiredService<Invoklet.Services.Connections.IConnectionStore>(),
             sp.GetRequiredService<Invoklet.Contracts.Connections.ConnectionDriverRegistry>(),
-            secrets: sp.GetRequiredService<Invoklet.Services.Secrets.ISecretStore>()));
+            secrets: sp.GetRequiredService<Invoklet.Secrets.ISecretStore>()));
         services.AddSingleton<Func<DependenciesWindow>>(sp => () => sp.GetRequiredService<DependenciesWindow>());
         services.AddSingleton<Func<PreferencesWindow>>(sp => () => sp.GetRequiredService<PreferencesWindow>());
         return services.BuildServiceProvider();
