@@ -100,8 +100,10 @@ Approval records the hash of the selected package contents. At startup, Invoklet
 installed files against that hash before loading the connector. No code from the package runs
 until you approve it and restart.
 
-**Remove** is refused while another plugin installed through Preferences depends on the
-connector; the message names those plugins. Remove them first.
+**Remove** is refused while another installed plugin depends on the connector, even if that
+plugin's files changed since approval; the message names those plugins. Remove them first.
+It is also refused while the manifest of another installed plugin cannot be read, because its
+dependencies are unknown; remove or repair that plugin first.
 
 ### Plugin states
 
