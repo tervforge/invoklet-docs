@@ -89,4 +89,4 @@ Keep the manifest and project versions in sync. Include any extra theme assets u
 `editor/ocean.json` at `plugin/editor/ocean.json`.
 
 Close the development session, launch Invoklet normally, and select the generated `.nupkg`
-in **Preferences → Plugins → Install archive…**. Approve it and restart.
+in **Preferences → Plugins → Install package…**. Approve it and restart.

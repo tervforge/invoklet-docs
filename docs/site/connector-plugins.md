@@ -82,12 +82,27 @@ client's configured address.
 Development mode loads the specified package without inventory approval. Use it for code you
 trust and restart Invoklet after rebuilding.
 
+## Package a connector
+
+Preferences installs plugins from NuGet packages (`.nupkg`). The package must contain the
+manifest, the entry DLL and its dependencies under `plugin/`. Continuing the example above,
+this packs the published sample:
+
+```powershell
+$package = 'build/obj/sample-http-package'
+New-Item -ItemType Directory -Force "$package/plugin" | Out-Null
+Copy-Item "$output/*" "$package/plugin" -Recurse -Force
+Compress-Archive -Path "$package/plugin" -DestinationPath "$package.zip" -Force
+Move-Item "$package.zip" 'build/obj/example.connector.http.1.0.0.nupkg' -Force
+```
+
+A package built with `dotnet pack` works too, as long as the plugin files are packed under
+`plugin/`. [Create a theme](create-theme.md#build-a-nuget-package) shows a project file for this.
+
 ## Install a connector for regular use
 
 1. Start Invoklet normally and open **Preferences → Plugins**.
-2. Choose **Install folder…** for a published plugin folder or **Install archive…** for a
-   `.zip`, `.invplugin` or `.nupkg`. In ZIP and `.invplugin` archives, put the manifest and
-   entry DLL at the root. In a NuGet package, put the plugin files under `plugin/`.
+2. Choose **Install package…** and select the `.nupkg` file.
 3. Review the name, version, publisher and source. A connector runs with the same permissions
    as Invoklet. If you trust the package, choose **Approve and install**, then restart.
 4. Use **Disable** or **Remove** in **Preferences → Plugins** to stop loading a connector.

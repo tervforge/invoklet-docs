@@ -21,9 +21,9 @@ kept and is applied again after the package is installed and Invoklet restarts.
 A theme package contains an `invoklet-plugin.json` manifest and one or more JSON theme definitions.
 It can also contain standalone VS Code TextMate themes.
 
-1. Open **Preferences → Plugins**. Select **Install folder…** or **Install archive…** and choose
-   the package. A ZIP or `.invplugin` archive must contain the manifest at its root. A NuGet
-   `.nupkg` must contain the manifest and its theme files under `plugin/`.
+1. Open **Preferences → Plugins**, select **Install package…** and choose the NuGet package
+   (`.nupkg`). It must contain the manifest and its theme files under `plugin/`; see
+   [Create a theme](create-theme.md#build-a-nuget-package).
 2. Review the package ID, version, publisher and source, then select **Approve and install**.
 3. Select **Restart now**, then choose the theme under **Preferences → Appearance**.
 
