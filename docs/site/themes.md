@@ -134,9 +134,11 @@ canonical key wins. Only keys from the key reference can be set. Other resources
 application cannot be overridden.
 
 A theme file that is not valid JSON, lacks `id` or `name`, has an invalid `base` or `extends`,
-reuses an existing ID, extends a missing parent or forms an inheritance cycle rejects the whole
-package, and the Plugins page shows the reason. An unknown key, a key in the wrong section or an
-invalid value is reported as a warning on the Plugins page and skipped. The remaining resources
+has an ID that is not in the plugin ID format or is already used, extends a missing parent, forms
+an inheritance cycle, or extends a palette from another package that is not listed in the
+manifest's `dependsOn` rejects the whole package, and the Plugins page shows the reason. An unknown key, a key in the wrong section or an
+invalid value is reported as a warning on the Plugins page and skipped. Numbers must be between
+0 and 512, and the `Invoklet.Type.*` and `Invoklet.Size.*` keys must be at least 1. The remaining resources
 still apply.
 
 An explicit editor theme selected in Appearance takes precedence over `editor.default`. A
@@ -150,7 +152,8 @@ optional `"type"` of `dark`, `light`, `hcDark` or `hcLight` marks it as dark or 
 otherwise it follows the palette's base. Files that use `include` are not supported. A file that
 cannot be read is skipped with a warning on the Plugins page, and the palette still loads.
 Appearance stores the editor theme as `<palette ID>/<editor theme ID>`, for example
-`example.theme.ocean/ocean-code`.
+`example.theme.ocean/ocean-code`. An editor theme that a palette inherits from its parent keeps
+the ID of the palette that declares it.
 
 Installed themes are read once at startup. Installing, updating, enabling, disabling or
 removing a theme package takes effect after restarting Invoklet.
