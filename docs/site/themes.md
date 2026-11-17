@@ -30,7 +30,9 @@ It can also contain standalone VS Code TextMate themes.
 Use **Enable** or **Disable** to set whether a theme package loads on the next start.
 **Remove** is available for user themes installed through Preferences. To replace an installed
 theme with a different version, remove the installed version first.
-**Content verified** means the loaded files matched the recorded hash at startup.
+**Content verified** means the loaded files matched the recorded hash at startup. The other
+states on the Plugins page, and how removal handles dependent packages, are described in
+[Plugin states](connector-plugins.md#plugin-states).
 
 For local development, launch the desktop app with `--plugins-dev <directory>`.
 Restart Invoklet after editing the package. Appearance lists themes from the current plugin session.
@@ -45,6 +47,13 @@ dotnet pack ThemePackages.slnx -c Release -o artifacts
 
 Each project under `themes/` packs its manifest and palettes. Keep the project version and
 manifest version in sync when publishing a new version.
+
+## Theme file format
+
+A theme package is a folder with `invoklet-plugin.json` at its root. A theme file can have any
+name: the manifest lists every theme file, relative to the package folder, in `assets.themes`.
+Each file describes one palette. This manifest declares one palette that extends a palette
+from the VS Code package:
 
 ```json
 {
@@ -95,7 +104,7 @@ For example, `editor/ocean.json` can contain this TextMate rule:
 
 | Field | Meaning |
 | --- | --- |
-| `id`, `name` | Unique stable identifier and the name displayed in Appearance. |
+| `id`, `name` | Required. A stable ID in the plugin ID format (lower-case segments joined by dots, such as `example.theme.ocean-dark`) and the name displayed in Appearance. The ID must not repeat a built-in palette or a palette from another package. |
 | `base` | `dark` or `light`. The closest declared base wins. A chain without a base uses dark. |
 | `extends` | Optional parent theme ID. Missing parents and cycles produce diagnostics. |
 | `colors` | Color strings such as `#10222B`. |
@@ -103,12 +112,47 @@ For example, `editor/ocean.json` can contain this TextMate rule:
 | `icons` | SVG path data. |
 | `editor` | Optional default editor theme ID and map of IDs to package-relative VS Code theme files. A file must contain its own `tokenColors` array. |
 
-Values resolve from the selected theme through its parents, then through the built-in base
-palette and shared metrics and icons. Unknown keys and invalid overrides appear in plugin
-diagnostics. The remaining resources still apply. An explicit editor theme selected in Appearance
-takes precedence over `editor.default`. A missing or unreadable editor theme falls back to the
-built-in editor theme for the current mode.
+Each key belongs in one section by its type, as listed in the [key reference](theme-keys.md):
+
+| Type | Section | Value |
+| --- | --- | --- |
+| `color` | `colors` | A color string such as `#10222B`, `#8010222B` or a named color. |
+| `double` | `metrics` | A number. |
+| `thickness` | `metrics` | One number, or an array of two or four numbers. |
+| `cornerRadius` | `metrics` | One number, or an array of four numbers. |
+| `geometry` | `icons` | SVG path data. |
+
+Values resolve in this order, and a later step overrides an earlier one:
+
+1. the shared metrics and icons;
+2. the built-in Midnight palette for a dark base or Warm Light for a light base;
+3. the theme's ancestors, starting with the most distant `extends` parent;
+4. the theme itself.
+
+An alias key, such as `ControlCornerRadius`, sets its canonical key. When a theme sets both, the
+canonical key wins. Only keys from the key reference can be set. Other resources of the
+application cannot be overridden.
+
+A theme file that is not valid JSON, lacks `id` or `name`, has an invalid `base` or `extends`,
+reuses an existing ID, extends a missing parent or forms an inheritance cycle rejects the whole
+package, and the Plugins page shows the reason. An unknown key, a key in the wrong section or an
+invalid value is reported as a warning on the Plugins page and skipped. The remaining resources
+still apply.
+
+An explicit editor theme selected in Appearance takes precedence over `editor.default`. A
+missing or unreadable editor theme falls back to the built-in editor theme for the current mode.
 When settings from an older release are migrated, the legacy Dark+ and Light+ names are
 treated as automatic selections.
+
+An editor theme file is a standalone VS Code color theme: a JSON object with a `tokenColors`
+array whose rules each have a `settings` object. Comments and trailing commas are allowed. An
+optional `"type"` of `dark`, `light`, `hcDark` or `hcLight` marks it as dark or light;
+otherwise it follows the palette's base. Files that use `include` are not supported. A file that
+cannot be read is skipped with a warning on the Plugins page, and the palette still loads.
+Appearance stores the editor theme as `<palette ID>/<editor theme ID>`, for example
+`example.theme.ocean/ocean-code`.
+
+Installed themes are read once at startup. Installing, updating, enabling, disabling or
+removing a theme package takes effect after restarting Invoklet.
 
 See the [interface theme key reference](theme-keys.md) for every supported resource.

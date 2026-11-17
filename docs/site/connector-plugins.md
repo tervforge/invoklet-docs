@@ -97,4 +97,22 @@ Disabling a plugin also disables its dependent plugins. To turn a dependent plug
 enable its dependencies first, then enable the plugin itself.
 
 Approval records the hash of the selected package contents. At startup, Invoklet checks the
-installed files against that hash before loading the connector.
+installed files against that hash before loading the connector. No code from the package runs
+until you approve it and restart.
+
+**Remove** is refused while another installed plugin depends on the connector; the message
+names those plugins. Remove them first.
+
+### Plugin states
+
+| State | Meaning |
+| --- | --- |
+| Loaded | The plugin loaded at this start. **Content verified** means its files matched the approved hash. |
+| Rejected | The plugin could not load. Its row lists the reason without file paths or secrets; other plugins still load. |
+| Disabled | The plugin is installed but turned off. |
+| Content changed | The installed files no longer match the approved hash, so the plugin is not loaded. Remove it and install the package again to approve the new contents. |
+| Pending restart | An install, removal, **Enable** or **Disable** takes effect at the next start. **Restart now** appears while such a change is waiting. |
+
+**Restart now** closes Invoklet through its usual exit, which asks about unsaved tabs. If you
+cancel, Invoklet keeps running and nothing is restarted. Otherwise it starts again with the
+same command-line arguments.
