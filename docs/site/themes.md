@@ -8,8 +8,8 @@ To make your own palette and package it, follow [Create a theme](create-theme.md
 ## Themes shipped with Invoklet
 
 Invoklet Midnight and Invoklet Warm Light are included in the app and available on the first
-launch. VS Code, Rider and VS 2022 are available from the separate
-[Invoklet custom themes repository](https://github.com/tervforge/invoklet-custom-themes).
+launch. VS Code, Rider and VS 2022 are theme packages in the
+[Invoklet plugins repository](https://github.com/tervforge/invoklet-plugins), next to the connectors.
 Each package contains a light and a dark palette.
 
 If your saved palette is unavailable after updating Invoklet, **Preferences → Appearance**
