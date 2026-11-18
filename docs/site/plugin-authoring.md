@@ -356,7 +356,10 @@ The invoklet-plugins repository builds, tests and publishes its packages on ever
   `invoklet-plugin.json`;
 - the repository's CI builds against a pinned Invoklet commit (`InvokletCommit` in
   `Directory.Build.props`), and Invoklet's CI checks pull requests against a pinned
-  invoklet-plugins commit; each pin moves together with the versions that need it.
+  invoklet-plugins commit; each pin moves together with the versions that need it;
+- after publishing, the same workflow deploys the Invoklet plugin feed to GitHub Pages
+  (`https://tervforge.github.io/invoklet-plugins/v3/index.json`): a static NuGet v3 feed of every
+  published version that anyone can read without signing in. Preferences lists and installs from it.
 
 To build Invoklet with locally built connectors, check out invoklet-plugins beside the Invoklet
 checkout and pack it. Invoklet then includes the packages from

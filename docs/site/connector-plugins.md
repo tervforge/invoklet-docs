@@ -95,7 +95,7 @@ complete project file, and the invoklet-plugins repository packs its connectors 
 ## Install from the plugin feed
 
 **Preferences → Plugins → Available plugins** lists the plugins of the Invoklet plugin feed after
-you select **Check the plugin feed**. Plugins included with Invoklet and plugins you already
+you select **Check the plugin feed**. The feed is public and needs no account or sign-in. Plugins included with Invoklet and plugins you already
 installed are marked and can't be installed again. Select **Install** next to a plugin:
 
 1. Invoklet looks at the plugin's versions, newest first, and picks the newest one whose manifest
@@ -109,7 +109,9 @@ installed are marked and can't be installed again. Select **Install** next to a 
 If no version fits, the page says why the newest one was skipped. If the feed can't be reached or
 refuses access, the page says so and your installed plugins are not affected. To use another
 NuGet v3 feed, such as a local test feed, start Invoklet with the environment variable
-`INVOKLET_PLUGIN_FEED` set to the feed's `index.json` address.
+`INVOKLET_PLUGIN_FEED` set to the feed's `index.json` address. A feed that needs a sign-in, such
+as GitHub Packages, is reported as refusing access: Invoklet does not send credentials to plugin
+feeds.
 
 To update an installed plugin from the feed, remove it, then install it again.
 
