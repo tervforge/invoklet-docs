@@ -340,6 +340,11 @@ before approval and restart.
 
 Package limits: at most 2048 files and 256 MB unpacked, with no links.
 
+A feed package appears under **Preferences → Plugins → Available plugins** when its ID is a plugin
+ID and its NuGet tags include `plugin`. Invoklet installs the newest version whose manifest
+`minAppVersion` and role contract versions fit the running app, so raise `minAppVersion` when a
+version needs a newer Invoklet: users of older releases then get the previous version.
+
 ### How Invoklet's own plugins are released
 
 The invoklet-plugins repository builds, tests and publishes its packages on every push to its

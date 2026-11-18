@@ -92,6 +92,27 @@ publishes itself into `plugin/` when packed:
 [Pack and publish through NuGet](plugin-authoring.md#6-pack-and-publish-through-nuget) has a
 complete project file, and the invoklet-plugins repository packs its connectors this way.
 
+## Install from the plugin feed
+
+**Preferences → Plugins → Available plugins** lists the plugins of the Invoklet plugin feed after
+you select **Check the plugin feed**. Plugins included with Invoklet and plugins you already
+installed are marked and can't be installed again. Select **Install** next to a plugin:
+
+1. Invoklet looks at the plugin's versions, newest first, and picks the newest one whose manifest
+   works with this Invoklet: its `minAppVersion` is not newer than the running app and its role
+   contract versions are supported. It downloads at most ten versions to find one, and runs none
+   of their code.
+2. The package then goes through the same review as a `.nupkg` file: the confirmation dialog shows
+   the chosen version, and approval adds it to your plugins for the next start.
+3. Select **Restart now**.
+
+If no version fits, the page says why the newest one was skipped. If the feed can't be reached or
+refuses access, the page says so and your installed plugins are not affected. To use another
+NuGet v3 feed, such as a local test feed, start Invoklet with the environment variable
+`INVOKLET_PLUGIN_FEED` set to the feed's `index.json` address.
+
+To update an installed plugin from the feed, remove it, then install it again.
+
 ## Install a connector for regular use
 
 1. Start Invoklet normally and open **Preferences → Plugins**.

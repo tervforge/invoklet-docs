@@ -21,6 +21,11 @@ kept and is applied again after the package is installed and Invoklet restarts.
 A theme package contains an `invoklet-plugin.json` manifest and one or more JSON theme definitions.
 It can also contain standalone VS Code TextMate themes.
 
+Themes from the Invoklet plugin feed, such as VS Code, Rider and VS 2022, are listed under
+**Preferences → Plugins → Available plugins**; see
+[Install from the plugin feed](connector-plugins.md#install-from-the-plugin-feed). To install a
+package file instead:
+
 1. Open **Preferences → Plugins**, select **Install package…** and choose the NuGet package
    (`.nupkg`). It must contain the manifest and its theme files under `plugin/`; see
    [Create a theme](create-theme.md#build-a-nuget-package).
