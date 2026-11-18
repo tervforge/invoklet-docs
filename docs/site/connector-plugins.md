@@ -7,8 +7,10 @@ startup. GUI and CLI use the same loader.
 The Invoklet source checkout contains a working example under
 `tests/fixtures/plugins/SampleHttpConnector/`. Its project targets .NET 10 through the
 repository's build settings and references `Invoklet.Plugins`, `Invoklet.Contracts` and
-`Invoklet.Format.MdRun`. Use project references to a matching Invoklet checkout when
-developing a connector.
+`Invoklet.Format.MdRun` as projects of that checkout. A connector of your own references them as
+NuGet packages; see [Contract packages and dependencies](plugin-authoring.md#2-contract-packages-and-dependencies).
+The connectors that ship with Invoklet are full examples: they live in the
+[invoklet-plugins](https://github.com/tervforge/invoklet-plugins) repository.
 
 ## Define the driver and entry point
 
@@ -85,19 +87,10 @@ trust and restart Invoklet after rebuilding.
 ## Package a connector
 
 Preferences installs plugins from NuGet packages (`.nupkg`). The package must contain the
-manifest, the entry DLL and its dependencies under `plugin/`. Continuing the example above,
-this packs the published sample:
-
-```powershell
-$package = 'build/obj/sample-http-package'
-New-Item -ItemType Directory -Force "$package/plugin" | Out-Null
-Copy-Item "$output/*" "$package/plugin" -Recurse -Force
-Compress-Archive -Path "$package/plugin" -DestinationPath "$package.zip" -Force
-Move-Item "$package.zip" 'build/obj/example.connector.http.1.0.0.nupkg' -Force
-```
-
-A package built with `dotnet pack` works too, as long as the plugin files are packed under
-`plugin/`. [Create a theme](create-theme.md#build-a-nuget-package) shows a project file for this.
+manifest, the entry DLL and its dependencies under `plugin/`. The simplest way is a project that
+publishes itself into `plugin/` when packed:
+[Pack and publish through NuGet](plugin-authoring.md#6-pack-and-publish-through-nuget) has a
+complete project file, and the invoklet-plugins repository packs its connectors this way.
 
 ## Install a connector for regular use
 
