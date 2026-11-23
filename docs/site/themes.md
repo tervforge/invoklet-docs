@@ -71,7 +71,7 @@ from the VS Code package:
 }
 ```
 
-The following `ocean.json` extends the dark VS Code palette. In `dependsOn`, use the package ID.
+The following `ocean.json` extends the dark VS Code palette. In `dependsOn`, use the plugin ID.
 In `extends`, use the palette ID. To ship a light variant alongside it, add its JSON file
 to the same `assets.themes` array and give it a distinct ID and `"base": "light"`.
 The embedded Midnight and Warm Light themes can be

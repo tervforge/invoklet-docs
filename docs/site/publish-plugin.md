@@ -35,7 +35,8 @@ Make a folder named `Example.HttpConnector` with three files.
 ### `invoklet-plugin.json`
 
 The manifest names the plugin. The package ID and version are read from it, so this is the only
-place they are written.
+place they are written. A publisher may put the package ID under a prefix of its own, as the
+Invoklet plugins do (`tervforge.invoklet.connector.postgres`); `dependsOn` always names plugin IDs.
 
 ```json
 {
@@ -248,7 +249,8 @@ package when:
 
 - the feed finds it when searching for `invoklet`, which the `invoklet` tag ensures;
 - its NuGet tags include `plugin`;
-- its package ID is a valid plugin ID, the same as the manifest's `id`;
+- its package ID is the manifest's `id`, or that `id` under a publisher prefix such as
+  `acme.` (`acme.example.connector.http`), and is a valid plugin ID;
 - it has at least one stable (not pre-release) version.
 
 Invoklet does not send credentials to feeds, so a feed that needs a sign-in, such as GitHub

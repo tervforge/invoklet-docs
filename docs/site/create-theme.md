@@ -39,10 +39,10 @@ TextMate editor themes. Start with a folder named `ocean` containing these three
 }
 ```
 
-Preferences uses the package ID to enable or disable both palettes. Appearance saves the
+Preferences uses the plugin ID (the manifest `id`) to enable or disable both palettes. Appearance saves the
 individual palette IDs. Use unique, stable IDs for your own package and palettes. If you
-extend a palette from another package, put its palette ID in `extends` and its package ID
-in the manifest's `dependsOn` array. The two embedded palettes in this example are always
+extend a palette from another package, put its palette ID in `extends` and its plugin ID
+(the manifest `id`, without a publisher prefix) in the manifest's `dependsOn` array. The two embedded palettes in this example are always
 available. See [Themes](themes.md) for TextMate assets and [Theme keys](theme-keys.md) for
 the available colors, metrics and icons.
 

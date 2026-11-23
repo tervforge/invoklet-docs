@@ -15,8 +15,10 @@ a NuGet package that users install from **Preferences → Plugins**. That reposi
 example of every step below. For a step-by-step walkthrough of a first plugin, see
 [Create and publish a plugin](publish-plugin.md).
 
-A package may contain only one role. Keep the package ID, manifest version and NuGet package
-version stable and aligned. The host reads and validates `invoklet-plugin.json` before it loads
+A package may contain only one role. The NuGet package ID is the manifest `id`, or the manifest
+`id` under a publisher prefix: the plugin `invoklet.connector.postgres` is published as
+`tervforge.invoklet.connector.postgres`. Keep the IDs, manifest version and NuGet package version
+stable and aligned. The host reads and validates `invoklet-plugin.json` before it loads
 any plugin assembly.
 
 ## 1. Choose the package shape
@@ -254,8 +256,8 @@ and `editor` sections:
 
 Use `theme-keys.md` for the complete list of allowed colors, metrics and icon geometry. A theme
 may include VS Code TextMate JSON files under `plugin/`; reference them from `editor.themes`.
-Theme inheritance must be declared twice: the palette ID goes in `extends`, and the package ID of
-the parent goes in the manifest's `dependsOn`.
+Theme inheritance must be declared twice: the palette ID goes in `extends`, and the plugin ID of
+the parent (its manifest `id`, without a publisher prefix) goes in the manifest's `dependsOn`.
 
 ## 5. Build, test and run locally
 
