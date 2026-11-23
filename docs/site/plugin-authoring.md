@@ -11,8 +11,9 @@ plugin roles:
 Invoklet's own plugins are built this way too. The HTTP/OpenAPI, gRPC, SQLite, PostgreSQL and
 SQL Server connectors, the EF Core library they share, and the VS Code, Rider and VS 2022 themes
 live in the [invoklet-plugins](https://github.com/tervforge/invoklet-plugins) repository. Each is
-a NuGet package. Invoklet includes the connectors in its releases; the themes are installed from
-**Preferences → Plugins**. That repository is a complete example of every step below.
+a NuGet package that users install from **Preferences → Plugins**. That repository is a complete
+example of every step below. For a step-by-step walkthrough of a first plugin, see
+[Create and publish a plugin](publish-plugin.md).
 
 A package may contain only one role. Keep the package ID, manifest version and NuGet package
 version stable and aligned. The host reads and validates `invoklet-plugin.json` before it loads

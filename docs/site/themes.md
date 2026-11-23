@@ -23,7 +23,7 @@ It can also contain standalone VS Code TextMate themes.
 
 Themes from the Invoklet plugin feed, such as VS Code, Rider and VS 2022, are listed under
 **Preferences → Plugins → Available plugins**; see
-[Install from the plugin feed](connector-plugins.md#install-from-the-plugin-feed). To install a
+[Install from the plugin feed](install-plugins.md#install-from-the-plugin-feed). To install a
 package file instead:
 
 1. Open **Preferences → Plugins**, select **Install package…** and choose the NuGet package
@@ -37,7 +37,7 @@ Use **Enable** or **Disable** to set whether a theme package loads on the next s
 theme with a different version, remove the installed version first.
 **Content verified** means the loaded files matched the recorded hash at startup. The other
 states on the Plugins page, and how removal handles dependent packages, are described in
-[Plugin states](connector-plugins.md#plugin-states).
+[Plugin states](install-plugins.md#plugin-states).
 
 For local development, launch the desktop app with `--plugins-dev <directory>`.
 Restart Invoklet after editing the package. Appearance lists themes from the current plugin session.

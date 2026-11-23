@@ -22,6 +22,7 @@ Invoklet is a free, open-source C# scratchpad for Windows, macOS and Linux.
   in repository previews
 - [Find and replace](editor.md#find-and-replace), [run just the selected code](editor.md#running-a-selection-and-restarting),
   and pick up where you left off: open tabs and unsaved changes [come back after a restart](editor.md#recovering-unsaved-tabs)
+- [Add connectors and themes as plugins](install-plugins.md), or [write your own](publish-plugin.md)
 - [View your scripts in Obsidian](obsidian.md): read and edit the notes and code of `.inv` files with the Invoklet Markdown plugin
 - Native and fast: no embedded browser, scripts compile in-process with Roslyn
 - Visual Basic scripts run and debug too

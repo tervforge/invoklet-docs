@@ -202,8 +202,9 @@ drag and drop. A connection can also be dragged onto the editor, or added with *
 The sidebar remembers which sections, connection groups and sample folders were expanded between
 launches. Grouping is local navigation state and does not change a script's `connections:` metadata.
 
-Invoklet ships HTTP, OpenAPI, gRPC, SQLite, PostgreSQL and SQL Server drivers as plugins.
-Manage their startup state under **Preferences → Plugins**. A disabled driver becomes unavailable
+The HTTP, OpenAPI, gRPC, SQLite, PostgreSQL and SQL Server drivers are plugins: install the ones
+you use from the plugin feed, as described in [Install plugins](install-plugins.md), and manage
+their startup state under **Preferences → Plugins**. A disabled driver becomes unavailable
 after restarting Invoklet. The CLI uses the same plugin settings.
 To add a driver of your own, follow [Write a connector plugin](connector-plugins.md).
 

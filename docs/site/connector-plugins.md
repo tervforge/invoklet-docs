@@ -92,60 +92,9 @@ publishes itself into `plugin/` when packed:
 [Pack and publish through NuGet](plugin-authoring.md#6-pack-and-publish-through-nuget) has a
 complete project file, and the invoklet-plugins repository packs its connectors this way.
 
-## Install from the plugin feed
+## Install and publish a connector
 
-**Preferences → Plugins → Available plugins** lists the plugins of the Invoklet plugin feed after
-you select **Check the plugin feed**. The feed is public and needs no account or sign-in. Plugins included with Invoklet and plugins you already
-installed are marked and can't be installed again. Select **Install** next to a plugin:
-
-1. Invoklet looks at the plugin's versions, newest first, and picks the newest one whose manifest
-   works with this Invoklet: its `minAppVersion` is not newer than the running app and its role
-   contract versions are supported. It downloads at most ten versions to find one, and runs none
-   of their code.
-2. The package then goes through the same review as a `.nupkg` file: the confirmation dialog shows
-   the chosen version, and approval adds it to your plugins for the next start.
-3. Select **Restart now**.
-
-If no version fits, the page says why the newest one was skipped. If the feed can't be reached or
-refuses access, the page says so and your installed plugins are not affected. To use another
-NuGet v3 feed, such as a local test feed, start Invoklet with the environment variable
-`INVOKLET_PLUGIN_FEED` set to the feed's `index.json` address. A feed that needs a sign-in, such
-as GitHub Packages, is reported as refusing access: Invoklet does not send credentials to plugin
-feeds.
-
-To update an installed plugin from the feed, remove it, then install it again.
-
-## Install a connector for regular use
-
-1. Start Invoklet normally and open **Preferences → Plugins**.
-2. Choose **Install package…** and select the `.nupkg` file.
-3. Review the name, version, publisher and source. A connector runs with the same permissions
-   as Invoklet. If you trust the package, choose **Approve and install**, then restart.
-4. Use **Disable** or **Remove** in **Preferences → Plugins** to stop loading a connector.
-   The change takes effect after restarting Invoklet.
-
-Disabling a plugin also disables its dependent plugins. To turn a dependent plugin back on,
-enable its dependencies first, then enable the plugin itself.
-
-Approval records the hash of the selected package contents. At startup, Invoklet checks the
-installed files against that hash before loading the connector. No code from the package runs
-until you approve it and restart.
-
-**Remove** is refused while another installed plugin depends on the connector, even if that
-plugin's files changed since approval; the message names those plugins. Remove them first.
-It is also refused while the manifest of another installed plugin cannot be read, because its
-dependencies are unknown; remove or repair that plugin first.
-
-### Plugin states
-
-| State | Meaning |
-| --- | --- |
-| Loaded | The plugin loaded at this start. **Content verified** means its files matched the approved hash. |
-| Rejected | The plugin could not load. Its row lists the reason without file paths or secrets; other plugins still load. |
-| Disabled | The plugin is installed but turned off. |
-| Content changed | The installed files no longer match the approved hash, so the plugin is not loaded. For a plugin installed through Preferences, remove it and install the package again to approve the new contents. For a plugin included with Invoklet, reinstall Invoklet. |
-| Pending restart | An install, removal, **Enable** or **Disable** takes effect at the next start. **Restart now** appears while such a change is waiting. |
-
-**Restart now** closes Invoklet through its usual exit, which asks about unsaved tabs. If you
-cancel, Invoklet keeps running and nothing is restarted. Otherwise it starts again with the
-same command-line arguments.
+[Install plugins](install-plugins.md) describes installing, updating, disabling and removing
+connectors and the plugin states shown in **Preferences → Plugins**.
+[Create and publish a plugin](publish-plugin.md) walks through building a connector from an empty
+folder, packing it and publishing it.
